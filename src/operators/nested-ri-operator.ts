@@ -35,11 +35,13 @@ export default class NestedRiOperator implements RiOperator {
   }
 
   private getTestableRi(ri: string) {
-    const wildcardRegex = new RegExp(`${this.riPattern.wildcard}${this.riPattern.separator}`, 'g');
+    const resourceWildcardRegex = new RegExp(`${this.riPattern.wildcard}${this.riPattern.separator}`, 'g');
+    const endWildcardRegex = new RegExp(`${this.riPattern.wildcard}$`);
     const testableRi =
       ri
-        .replace(wildcardRegex, `${this.riPattern.resource}${this.riPattern.separator}`)
-        .replace(/\*$/, '.*');
+        .replace(resourceWildcardRegex, `${this.riPattern.resource}${this.riPattern.separator}`)
+        .replace(endWildcardRegex, '.*');
+
     return new RegExp(`^${testableRi}`);
   }
 }
