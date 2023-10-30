@@ -12,7 +12,7 @@ export default class RelationActionOperator implements ActionOperator {
     actions: string[],
     relationship: Record<string, string[]>
   ) {
-    this.defineActionFamily(actions, relationship!);
+    this.formatActionRelation(actions, relationship!);
   }
   
   isMatch(requestAction: string, permissionAction: string) {
@@ -28,7 +28,7 @@ export default class RelationActionOperator implements ActionOperator {
    * - delete: read = 8 + 4 = 12
    * - read = 8
    */ 
-  private defineActionFamily(actions: string[], relationship: Record<string, string[]>) {
+  private formatActionRelation(actions: string[], relationship: Record<string, string[]>) {
     this.definitionValues = actions.reduce(
       (pre, cur, index) => {
         pre[cur] = 1 << index;

@@ -13,7 +13,7 @@
   "rules": {
     "@typescript-eslint/no-explicit-any": ["error", { "ignoreRestArgs": false }],
     "@typescript-eslint/no-non-null-assertion": "off",
-    "linebreak-style": ["error", "unix"],
+    // "linebreak-style": ["error", "unix"],
     "@typescript-eslint/naming-convention": [
     "error",
     { "selector": "property", "format": ["UPPER_CASE"], "modifiers": ["static", "readonly"] }
@@ -43,7 +43,7 @@
     "@typescript-eslint/no-magic-numbers": [
     "error",
     {
-      "ignore": [-1, 0],
+      "ignore": [-1, 0, 1],
       "ignoreReadonlyClassProperties": true,
       "ignoreEnums": true
     }

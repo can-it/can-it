@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
-
+    "types": [
+      "jest"
+    ],
     "target": "es2015",
     "module": "es2015",
     "declaration": true,
@@ -26,6 +28,12 @@
 
     "outDir": "dist"
   },
-  "include": ["src/index.ts"],
-  "exclude": ["node_modules", "src/**/__tests__/*", "examples"]
+  "include": [
+    "src/**/__tests__/*",
+    "src/index.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "examples"
+  ]
 }
