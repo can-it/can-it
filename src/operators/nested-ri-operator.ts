@@ -1,15 +1,10 @@
 import RiOperator from '../types/ri-operator';
-
-interface RiPattern {
-  separator: string;
-  wildcard: string;
-  resource: string;
-}
+import RiPattern from '../types/ri-pattern';
 
 const DEFAULT_RI_PATTERN: RiPattern = {
   separator: '::',
   wildcard: '*',
-  resource: '[\\w-]*',
+  resourceRegex: '[\\w-]*',
 };
 
 /**
@@ -26,10 +21,6 @@ export default class NestedRiOperator implements RiOperator {
     private riPattern: RiPattern = DEFAULT_RI_PATTERN
   ) {}
   
-  generate(ris: string | string[]) {
-    return ([] as string[]).concat(ris).join(this.riPattern.separator);
-  }
-
   isMatch(ri: string, permissionRi: string) {
     return this.getTestableRi(ri).test(permissionRi);
   }
@@ -39,7 +30,7 @@ export default class NestedRiOperator implements RiOperator {
     const endWildcardRegex = new RegExp(`${this.riPattern.wildcard}$`);
     const testableRi =
       ri
-        .replace(resourceWildcardRegex, `${this.riPattern.resource}${this.riPattern.separator}`)
+        .replace(resourceWildcardRegex, `${this.riPattern.resourceRegex}${this.riPattern.separator}`)
         .replace(endWildcardRegex, '.*');
 
     return new RegExp(`^${testableRi}`);

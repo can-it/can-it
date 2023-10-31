@@ -11,7 +11,7 @@ describe('CanIt', () => {
         ]
       },
       { isMatch: (a: string, b: string) => a === b },
-      { isMatch: (a: string, b: string) => a === b, generate: () => '' }
+      { isMatch: (a: string, b: string) => a === b }
     );
   });
 
@@ -43,7 +43,7 @@ describe('CanIt with DENY', () => {
         ]
       },
       { isMatch: (a: string, b: string) => a === b },
-      { isMatch: (a: string, b: string) => a === b, generate: () => '' }
+      { isMatch: (a: string, b: string) => a === b }
     );
   });
 
