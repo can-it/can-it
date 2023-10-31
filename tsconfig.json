@@ -29,7 +29,7 @@
     "outDir": "dist"
   },
   "include": [
-    "src/**/__tests__/*",
+    "src/**/__tests__/**/*.ts",
     "src/index.ts"
   ],
   "exclude": [
