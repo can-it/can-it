@@ -4,6 +4,25 @@ interface ActionValue {
   [action: string]: number;
 }
 
+/**
+ * ```typescript
+ *  const operator = new RelationActionOperator(
+ *    ['create', 'edit', 'delete', 'get', '*'],
+ *    {
+ *      edit: ['get'], // The "edit" action allows performing the "get" action.
+ *      create: ['edit', 'get'], // The "create" action allows performing the "edit" and "get" actions.
+ *      ['*']: ['create', 'edit', 'delete', 'get'] // The "*" action allows performing all other actions.
+ *    }
+ *  );
+ * 
+ *  operator.isMatch('create', '*'); // true
+ *  operator.isMatch('get', 'edit'); // true 
+ *  operator.isMatch('get', 'get'); // true 
+ *  operator.isMatch('delete', 'delete'); // true 
+ *  operator.isMatch('get', 'create'); // false 
+ *  operator.isMatch('get', 'delete'); // false 
+ * ```
+ */
 export default class RelationActionOperator implements ActionOperator {
   private relationValues!: ActionValue;
   private definitionValues!: ActionValue;
