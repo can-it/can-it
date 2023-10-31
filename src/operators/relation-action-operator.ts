@@ -40,7 +40,7 @@ export default class RelationActionOperator implements ActionOperator {
     this.relationValues = actions.reduce((pre, action) => {
       const relationValue = (relationship[action] || []).reduce(
         (sum, v) => sum + (this.definitionValues[v] || 0),
-        this.definitionValues[action] || 0
+        this.definitionValues[action]!
       );
 
       pre[action] = relationValue;
