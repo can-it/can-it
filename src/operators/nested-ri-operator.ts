@@ -4,7 +4,7 @@ import RiPattern from '../types/ri-pattern';
 const DEFAULT_RI_PATTERN: RiPattern = {
   separator: '::',
   wildcard: '*',
-  resource: '[\\w-]*',
+  resourceRegex: '[\\w-]*',
 };
 
 const escapeRegex = (text: string) => text.replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\$&');
@@ -37,14 +37,14 @@ export default class NestedRiOperator implements RiOperator {
   }
 
   private getTestableRi(ri: string) {
-    const resourceWildcardRegex = new RegExp(`${escapeRegex(this.riPattern.wildcard)}${this.riPattern.separator}`, 'g');
-    const endWildcardRegex = new RegExp(`${escapeRegex(this.riPattern.wildcard)}$`);
+    const resourceWildcardRegex = new RegExp(`${escapeRegex(this.riPattern.wildcard + this.riPattern.separator)}`, 'g');
+    const endWildcardRegex = new RegExp(`${escapeRegex(this.riPattern.separator + this.riPattern.wildcard)}$`);
     const testableRi =
       ri
         // replace all the wildcard that appears at start and center of a ri
-        .replace(resourceWildcardRegex, `${this.riPattern.resource}${this.riPattern.separator}`)
+        .replace(resourceWildcardRegex, `${this.riPattern.resourceRegex}${this.riPattern.separator}`)
         // if the wildcard appears at the end, mean we only support up to that level
-        .replace(endWildcardRegex, `${this.riPattern.resource}$`);
+        .replace(endWildcardRegex, `(${this.riPattern.separator}${this.riPattern.resourceRegex})?$`);
 
     return new RegExp(`^${testableRi}`);
   }
