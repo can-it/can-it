@@ -1,13 +1,28 @@
 import { DEFAULT_RI_PATTERN } from '../constants';
 import RiGenerator from '../types/ri-generator';
 import RiPattern from '../types/ri-pattern';
+
+/**
+ * Default resource identifier (RI) pattern:
+ * ```typescript
+ * {
+ *   separator: '::',
+ *   wildcard: '*',
+ *   resourceRegex: '[\\w-]*'
+ * }
+ * ```
+ *
+ * Examples of generated RIs:
+ * - `orgs::*::users`
+ * - `orgs::*::users::any-user-id_ksi8-38`
+ */
 export default class NestedRiGenerator implements RiGenerator {
   private resourceRegex: RegExp;
 
   constructor(
     private riPattern: RiPattern = DEFAULT_RI_PATTERN
   ) {
-    this.resourceRegex = new RegExp(this.riPattern.resourceRegex);
+    this.resourceRegex = new RegExp(`^${this.riPattern.resourceRegex}$`);
   }
 
   /**
