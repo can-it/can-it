@@ -1,12 +1,6 @@
 import RiOperator from '../types/ri-operator';
 import RiPattern from '../types/ri-pattern';
-
-const DEFAULT_RI_PATTERN: RiPattern = {
-  separator: '::',
-  wildcard: '*',
-  resourceRegex: '[\\w-]*',
-};
-
+import { DEFAULT_RI_PATTERN } from '../constants';
 const escapeRegex = (text: string) => text.replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\$&');
 
 /**
