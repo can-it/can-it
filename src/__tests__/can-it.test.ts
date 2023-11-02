@@ -1,4 +1,4 @@
-import CanIt from '../can-it';
+import { CanIt } from '../can-it';
 
 describe('CanIt', () => {
   let canIt: CanIt;

@@ -1,3 +1,3 @@
-export default interface RiOperator {
+export interface RiOperator {
   isMatch(reqRi: string, permRi: string): boolean;
 }

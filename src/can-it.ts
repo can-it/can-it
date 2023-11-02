@@ -1,9 +1,8 @@
 import { Request } from './types/request';
-import PolicyState, { Permission } from './types/policy-state';
-import RiOperator from './types/ri-operator';
-import ActionOperator from './types/action-operator';
-
-export default class CanIt {
+import { Permission, PolicyState } from './types/policy-state';
+import { ActionOperator } from './types/action-operator';
+import { RiOperator } from './types/ri-operator';
+export class CanIt {
   constructor(
     private policyState: PolicyState,
     private actionOperator: ActionOperator,

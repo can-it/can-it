@@ -1,4 +1,4 @@
-import EqualRiOperator from '../../operators/equal-ri-operator';
+import { EqualRiOperator } from '../../operators/equal-ri-operator';
 
 describe('EqualRiGenerator', () => {
   const operator = new EqualRiOperator();

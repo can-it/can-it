@@ -1,4 +1,4 @@
-import ActionOperator from '../types/action-operator';
+import { ActionOperator } from '../types/action-operator';
 
 interface ActionValue {
   [action: string]: number;
@@ -23,7 +23,7 @@ interface ActionValue {
  *  operator.isMatch('get', 'delete'); // false 
  * ```
  */
-export default class RelationActionOperator implements ActionOperator {
+export class RelationActionOperator implements ActionOperator {
   private relationValues!: ActionValue;
   private definitionValues!: ActionValue;
   

@@ -1,4 +1,4 @@
-import NestedRiGenerator from '../../generators/nested-ri-generator';
+import { NestedRiGenerator } from '../../generators/nested-ri-generator';
 
 describe('NestedRiGenerator with default ri pattern', () => {
   const operator = new NestedRiGenerator();

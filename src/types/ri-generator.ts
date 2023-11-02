@@ -1,3 +1,3 @@
-export default interface RiGenerator {
+export interface RiGenerator {
   generate(sources: string | string[]): string;
 }

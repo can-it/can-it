@@ -1,4 +1,4 @@
-import EqualActionOperator from '../../operators/equal-action-operator';
+import { EqualActionOperator } from '../../operators/equal-action-operator';
 
 describe('EqualRiGenerator', () => {
   const operator = new EqualActionOperator();

@@ -1,6 +1,6 @@
 export type Permission = [action: string, resourceIdentity: string];
 
-export default interface PolicyState {
+export interface PolicyState {
   allow: Permission[],
   deny?: Permission[]
 }

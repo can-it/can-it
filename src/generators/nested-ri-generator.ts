@@ -1,7 +1,6 @@
 import { DEFAULT_RI_PATTERN } from '../constants';
-import RiGenerator from '../types/ri-generator';
-import RiPattern from '../types/ri-pattern';
-
+import { RiGenerator } from '../types/ri-generator';
+import { RiPattern } from '../types/ri-pattern';
 /**
  * Default resource identifier (RI) pattern:
  * ```typescript
@@ -16,7 +15,7 @@ import RiPattern from '../types/ri-pattern';
  * - `orgs::*::users`
  * - `orgs::*::users::any-user-id_ksi8-38`
  */
-export default class NestedRiGenerator implements RiGenerator {
+export class NestedRiGenerator implements RiGenerator {
   private resourceRegex: RegExp;
 
   constructor(

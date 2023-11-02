@@ -1,4 +1,4 @@
-import NestedRiOperator from '../../operators/nested-ri-operator';
+import { NestedRiOperator } from '../../operators/nested-ri-operator';
 
 // eslint-disable-next-line max-lines-per-function
 describe('NestedRiOperator with default ri pattern', () => {

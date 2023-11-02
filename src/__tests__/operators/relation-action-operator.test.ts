@@ -1,4 +1,4 @@
-import RelationActionOperator from '../../operators/relation-action-operator';
+import { RelationActionOperator } from '../../operators/relation-action-operator';
 
 describe('NestedActionOperator: action is not mentioned in the "relationship" object', () => {
   const operator = new RelationActionOperator(

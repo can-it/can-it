@@ -1,6 +1,6 @@
-import RiOperator from '../types/ri-operator';
-import RiPattern from '../types/ri-pattern';
 import { DEFAULT_RI_PATTERN } from '../constants';
+import { RiOperator } from '../types/ri-operator';
+import { RiPattern } from '../types/ri-pattern';
 const escapeRegex = (text: string) => text.replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\$&');
 
 /**
@@ -21,7 +21,7 @@ const escapeRegex = (text: string) => text.replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\
  * - Access products of user X at organization Y: `orgs::*::users::X::products`
  * - Access product Z of user X at organization Y: `orgs::Y::users::X::products::Z`
  */
-export default class NestedRiOperator implements RiOperator {
+export class NestedRiOperator implements RiOperator {
   constructor(
     private riPattern: RiPattern = DEFAULT_RI_PATTERN
   ) {}
