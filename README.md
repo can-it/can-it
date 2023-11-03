@@ -4,6 +4,9 @@
 
 `@can-it/core` is an npm library that provides functionality for handling access control and permission checks based on actions and resource identification.
 
+## ⛔ Project Status
+The project is still under development, which means there will be frequent breaking changes in versions 0.x.x. Please wait until version 1.0.0 for a more stable release.
+
 ## Installation
 
 You can install the library using npm. Run the following command in your project directory:
