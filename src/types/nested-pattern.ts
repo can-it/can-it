@@ -1,4 +1,4 @@
-export interface RiPattern {
+export interface NestedPattern {
   separator: string;
   wildcard: string;
   resourceRegex: string;

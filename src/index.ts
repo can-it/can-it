@@ -1,16 +1,13 @@
 export * from './can-it';
 
-export * from './generators/nested-ri-generator';
+export * from './operators/nested-generator';
 
-export * from './operators/equal-action-operator';
-export * from './operators/relation-action-operator';
+export * from './operators/exact-comparator';
+export * from './operators/relation-comparator';
 
-export * from './operators/equal-ri-operator';
-export * from './operators/nested-ri-operator';
+export * from './operators/nested-comparator';
 
-export * from './types/action-operator';
+export * from './types/comparator';
 export * from './types/policy-state';
 export * from './types/request';
-export * from './types/ri-generator';
-export * from './types/ri-operator';
-export * from './types/ri-pattern';
+export * from './types/nested-pattern';

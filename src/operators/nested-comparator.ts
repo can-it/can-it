@@ -1,6 +1,6 @@
 import { DEFAULT_RI_PATTERN } from '../constants';
-import { RiOperator } from '../types/ri-operator';
-import { RiPattern } from '../types/ri-pattern';
+import { Comparator } from '../types/comparator';
+import { NestedPattern } from '../types/nested-pattern';
 const escapeRegex = (text: string) => text.replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\$&');
 
 /**
@@ -21,13 +21,17 @@ const escapeRegex = (text: string) => text.replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\
  * - Access products of user X at organization Y: `orgs::*::users::X::products`
  * - Access product Z of user X at organization Y: `orgs::Y::users::X::products::Z`
  */
-export class NestedRiOperator implements RiOperator {
+export class NestedComparator implements Comparator {
   constructor(
-    private riPattern: RiPattern = DEFAULT_RI_PATTERN
+    private riPattern: NestedPattern = DEFAULT_RI_PATTERN
   ) {}
 
-  isMatch(ri: string, permissionRi: string) {
+  isAllowed(ri: string, permissionRi: string) {
     return this.getTestableRi(permissionRi).test(ri);
+  }
+
+  isDenied(reqRi: string, permRi: string): boolean {
+    return this.isAllowed(reqRi, permRi);  
   }
 
   private getTestableRi(ri: string) {

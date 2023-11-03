@@ -1,29 +1,29 @@
-import { RelationActionOperator } from '../../operators/relation-action-operator';
+import { RelationComparator } from '../../operators/relation-comparator';
 
 describe('NestedActionOperator: action is not mentioned in the "relationship" object', () => {
-  const operator = new RelationActionOperator(
+  const operator = new RelationComparator(
     ['create', 'edit', 'delete', 'get', '*'],
     {
       edit: ['get'], // the "edit" action will allow to perform "get" action
     }
   );
   test('should allow the GET action', () => {
-    expect(operator.isMatch('get', 'get')).toBe(true);
+    expect(operator.isAllowed('get', 'get')).toBe(true);
   });
   
   test('should allow the DELETE action', () => {
-    expect(operator.isMatch('delete', 'delete')).toBe(true);
+    expect(operator.isAllowed('delete', 'delete')).toBe(true);
   });
 
   test('should not allow other actions', () => {
-    expect(operator.isMatch('edit', 'get')).toBe(false);
-    expect(operator.isMatch('delete', 'get')).toBe(false);
+    expect(operator.isAllowed('edit', 'get')).toBe(false);
+    expect(operator.isAllowed('delete', 'get')).toBe(false);
   });
 });
 
 // eslint-disable-next-line max-lines-per-function
 describe('NestedActionOperator: mention with some other actions in the "relationship" object', () => {
-  const operator = new RelationActionOperator(
+  const operator = new RelationComparator(
     ['create', 'edit', 'delete', 'get', '*'],
     {
       edit: ['get'], // the "edit" action will allow to perform "get" action
@@ -34,43 +34,43 @@ describe('NestedActionOperator: mention with some other actions in the "relation
 
   describe('mention some actions', () => {
     test('should allow the GET action', () => {
-      expect(operator.isMatch('get', 'edit')).toBe(true);
+      expect(operator.isAllowed('get', 'edit')).toBe(true);
     });
 
     test('should allow the EDIT action', () => {
-      expect(operator.isMatch('edit', 'edit')).toBe(true);
+      expect(operator.isAllowed('edit', 'edit')).toBe(true);
     });
 
     test('should not allow the CREATE action', () => {
-      expect(operator.isMatch('create', 'edit')).toBe(false);
+      expect(operator.isAllowed('create', 'edit')).toBe(false);
     });
 
     test('should only support 1 level of relationship between actions', () => {
-      expect(operator.isMatch('create', 'get')).toBe(false);
+      expect(operator.isAllowed('create', 'get')).toBe(false);
     });
   });
   
   describe('mention all actions', () => {
     test('should allow the GET action', () => {
-      expect(operator.isMatch('get', '*')).toBe(true);
+      expect(operator.isAllowed('get', '*')).toBe(true);
     });
 
     test('should allow the EDIT action', () => {
-      expect(operator.isMatch('edit', '*')).toBe(true);
+      expect(operator.isAllowed('edit', '*')).toBe(true);
     });
 
     test('should not allow the CREATE action', () => {
-      expect(operator.isMatch('create', '*')).toBe(true);
+      expect(operator.isAllowed('create', '*')).toBe(true);
     });
 
     test('should not allow the CREATE action', () => {
-      expect(operator.isMatch('delete', '*')).toBe(true);
+      expect(operator.isAllowed('delete', '*')).toBe(true);
     });
   });
 });
 
 describe('NestedActionOperator: do not support inheritance in "relationship" action', () => {
-  const operator = new RelationActionOperator(
+  const operator = new RelationComparator(
     ['create', 'edit', 'get'],
     {
       edit: ['get'], // the "edit" action will allow to perform "get" action
@@ -79,15 +79,15 @@ describe('NestedActionOperator: do not support inheritance in "relationship" act
   );
 
   test('"create can edit" and "edit can get", but "create can not get"', () => {
-    expect(operator.isMatch('get', 'edit')).toBe(true);
-    expect(operator.isMatch('edit', 'create')).toBe(true);
+    expect(operator.isAllowed('get', 'edit')).toBe(true);
+    expect(operator.isAllowed('edit', 'create')).toBe(true);
 
-    expect(operator.isMatch('get', 'create')).toBe(false);
+    expect(operator.isAllowed('get', 'create')).toBe(false);
   });
 });
 
 describe('NestedActionOperator with incorrect action relationship', () => {
-  const operator = new RelationActionOperator(
+  const operator = new RelationComparator(
     ['edit', 'get'],
     {
       edit: ['unknown-action', 'get'],
@@ -96,12 +96,12 @@ describe('NestedActionOperator with incorrect action relationship', () => {
   );
 
   test('should allow the provided action', () => {
-    expect(operator.isMatch('get', 'edit')).toBe(true);
+    expect(operator.isAllowed('get', 'edit')).toBe(true);
   });
 
   test('should always not allow the action that not provided in "actions" list', () => {
-    expect(operator.isMatch('unknown-action', 'unknow-action')).toBe(false);
-    expect(operator.isMatch('edit', 'unknow-action')).toBe(false);
-    expect(operator.isMatch('unknown-action', 'edit')).toBe(false);
+    expect(operator.isAllowed('unknown-action', 'unknow-action')).toBe(false);
+    expect(operator.isAllowed('edit', 'unknow-action')).toBe(false);
+    expect(operator.isAllowed('unknown-action', 'edit')).toBe(false);
   });
 });

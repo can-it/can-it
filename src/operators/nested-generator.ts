@@ -1,6 +1,6 @@
 import { DEFAULT_RI_PATTERN } from '../constants';
-import { RiGenerator } from '../types/ri-generator';
-import { RiPattern } from '../types/ri-pattern';
+import { Generator } from '../types/generator';
+import { NestedPattern } from '../types/nested-pattern';
 /**
  * Default resource identifier (RI) pattern:
  * ```typescript
@@ -15,11 +15,11 @@ import { RiPattern } from '../types/ri-pattern';
  * - `orgs::*::users`
  * - `orgs::*::users::any-user-id_ksi8-38`
  */
-export class NestedRiGenerator implements RiGenerator {
+export class NestedGenerator implements Generator {
   private resourceRegex: RegExp;
 
   constructor(
-    private riPattern: RiPattern = DEFAULT_RI_PATTERN
+    private riPattern: NestedPattern = DEFAULT_RI_PATTERN
   ) {
     this.resourceRegex = new RegExp(`^${this.riPattern.resourceRegex}$`);
   }
@@ -34,7 +34,7 @@ export class NestedRiGenerator implements RiGenerator {
    * generate(['orgs', '', 'users', '']); // 'orgs::*::users::*'
    * ```
    */
-  generate(resources: string[]) {
+  transform(resources: string[]) {
     this.validateResources(resources);
 
     return resources

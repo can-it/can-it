@@ -1,6 +1,7 @@
 import { CanIt } from '../can-it';
 
 describe('CanIt', () => {
+  const equal = (a: string, b: string) => a === b;
   let canIt: CanIt;
   beforeEach(() => {
     canIt = new CanIt(
@@ -10,8 +11,8 @@ describe('CanIt', () => {
           ['delete', 'products']
         ]
       },
-      { isMatch: (a: string, b: string) => a === b },
-      { isMatch: (a: string, b: string) => a === b }
+      { isAllowed: equal, isDenied: equal },
+      { isAllowed: equal, isDenied: equal }
     );
   });
 
@@ -30,6 +31,7 @@ describe('CanIt', () => {
 
 describe('CanIt with DENY', () => {
   let canIt: CanIt;
+  const isEqual = (a: string, b: string) => a === b;
   beforeEach(() => {
     canIt = new CanIt(
       {
@@ -42,8 +44,8 @@ describe('CanIt with DENY', () => {
           ['delete', 'users']
         ]
       },
-      { isMatch: (a: string, b: string) => a === b },
-      { isMatch: (a: string, b: string) => a === b }
+      { isAllowed: isEqual, isDenied: isEqual },
+      { isAllowed: isEqual, isDenied: isEqual }
     );
   });
 

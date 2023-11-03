@@ -1,4 +1,4 @@
-import { ActionOperator } from '../types/action-operator';
+import { Comparator } from '../types/comparator';
 
 interface ActionValue {
   [action: string]: number;
@@ -23,7 +23,7 @@ interface ActionValue {
  *  operator.isMatch('get', 'delete'); // false 
  * ```
  */
-export class RelationActionOperator implements ActionOperator {
+export class RelationComparator implements Comparator {
   private relationValues!: ActionValue;
   private definitionValues!: ActionValue;
   
@@ -34,8 +34,13 @@ export class RelationActionOperator implements ActionOperator {
     this.formatActionRelation(actions, relationship!);
   }
   
-  isMatch(requestAction: string, permissionAction: string) {
-    return !!(this.definitionValues[requestAction]! & this.relationValues[permissionAction]!);
+  isAllowed(requestCode: string, permissionCode: string) {
+    return !!(this.definitionValues[requestCode]! & this.relationValues[permissionCode]!);
+  }
+
+  isDenied(requestCode: string, permissionCode: string): boolean {
+    // FIXME::there a bug about checking it on deny logic, fix it before release new version
+    return this.isAllowed(requestCode, permissionCode);
   }
 
   /**

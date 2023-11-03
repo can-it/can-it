@@ -21,12 +21,12 @@ Using this package is easy. Follow the example below to get started:
 
 ```typescript
 // Import classes from the library
-import { CanIt, EqualActionOperator, EqualRiOperator } from '@can-it/core';
+import { CanIt, ExactComparator } from '@can-it/core';
 
 // Create a CanIt instance by providing:
 // - Policy State
-// - Action Operator
-// - Ri Operator
+// - Action Comparator
+// - Ri Comparator
 const canIt = new CanIt(
   {
     allow: [
@@ -37,8 +37,8 @@ const canIt = new CanIt(
       ['delete', 'users']
     ]
   },
-  new EqualActionOperator(),
-  new EqualRiOperator()
+  new ExactComparator(),
+  new ExactComparator()
 );
 
 // Check whether a request is allowed or not
@@ -68,13 +68,13 @@ console.log(
 
 - **Policy State** is a list of permissions defined for a principal, typically representing the currently authenticated user.
 
-- **ActionOperator** is an interface that has an `isMatch` method used to check whether the request action matches a specific permission action defined in the PolicyState object. The package currently supports two types of operators:
-- `EqualActionOperator`: This operator is used for comparing two actions for equality. It performs a simple string comparison to check if two RIs are exactly the same.
+- **Comparator** is an interface that has an `isAllowed` method used to check whether the request action/ri matches a specific permission action/ri defined in the PolicyState object. The package currently supports 3 types of comparators:
+- `EqualComparator`: This operator is used for comparing two values for equality. It performs a simple string comparison to check if two values are exactly the same.
 
-- `RelationActionOperator` is another operator provided by the `@can-it/core` package. Let's take a look at the code example to understand how it works:
+- `RelationComparator` is another operator provided by the `@can-it/core` package. Let's take a look at the code example to understand how it works:
 
     ```typescript
-    const operator = new RelationActionOperator(
+    const comparator = new RelationComparator(
       ['create', 'edit', 'delete', 'get', '*'],
       {
         edit: ['get'], // The "edit" action allows performing the "get" action.
@@ -83,17 +83,14 @@ console.log(
       }
     );
 
-    operator.isMatch('create', '*'); // true
-    operator.isMatch('get', 'edit'); // true 
-    operator.isMatch('get', 'get'); // true 
-    operator.isMatch('delete', 'delete'); // true 
-    operator.isMatch('get', 'create'); // false 
-    operator.isMatch('get', 'delete'); // false 
+    comparator.isAllowed('create', '*'); // true
+    comparator.isAllowed('get', 'edit'); // true 
+    comparator.isAllowed('get', 'get'); // true 
+    comparator.isAllowed('delete', 'delete'); // true 
+    comparator.isAllowed('get', 'create'); // false 
+    comparator.isAllowed('get', 'delete'); // false 
     ```
-
-- **RiOperator** is an interface that has an `isMatch` method used to check whether the request RI matches a specific permission resouce RI in the PolicyState object. The package currently supports two types of operators:
-  - `EqualRiOperator`: This operator is used for comparing two resource identifiers (RI) for equality. It performs a simple string comparison to check if two RIs are exactly the same.
-  - `NestedRiOperator`: This operator is used for handling nested resource identifiers. It provides a way to define and work with hierarchical relationships between resources. Here are a few use cases to help you understand the functionality of the NestedRiOperator:
+  - `NestedComparator`: This operator is used for handling nested values. It provides a way to define and work with hierarchical relationships between values (usually resources). Here are a few use cases to help you understand the functionality of the NestedOperator:
 
       Ri definition:
       - User X belongs to org Y, the ri would be: `orgs::Y::users::X`
