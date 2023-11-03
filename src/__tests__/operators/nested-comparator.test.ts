@@ -1,9 +1,8 @@
 import { NestedComparator } from '../../operators/nested-comparator';
 
+const operator = new NestedComparator();
 // eslint-disable-next-line max-lines-per-function
-describe('NestedRiOperator with default ri pattern', () => {
-  const operator = new NestedComparator();
-
+describe('NestedRiOperator.isAllowed with default ri pattern', () => {
   describe('There no wildcard in permission: "orgs"', () => {
     test('should authorize to all organizations and its children resources', () => {
       expect(operator.isAllowed('orgs', 'orgs')).toBe(true);
@@ -48,6 +47,31 @@ describe('NestedRiOperator with default ri pattern', () => {
     
     test('should authorize to user\'s resources (orgs::any-org-id::users::any-user-id::child-resource)', () => {
       expect(operator.isAllowed('orgs::any-org-id::users::any-user-id-39485:products', 'orgs::*::users')).toBe(true);
+    });
+  });
+});
+
+describe('NestedRiOperator.isDenied', () => {
+  test('should receive the same value as isAllowed', () => {
+    // the values from all of above test cases
+    [
+      ['orgs', 'orgs'],
+      ['orgs::any-org-id-9585', 'orgs'],
+      ['orgs::any-org-id-9585::users::user-id-73jg4k', 'orgs'],
+      ['orgs', 'orgs::*'],
+      ['orgs::any-org-id-93485', 'orgs::*'],
+      ['orgs::any-org-id-93485::users', 'orgs::*'],
+      ['orgs::any-org-id-93485::users:any-user-id-js934n', 'orgs::*'],
+      ['orgs::any-org-id::users', 'orgs::*::users'],
+      ['orgs::any-org-id::users::any-user-id-39485', 'orgs::*::users'],
+      ['orgs::any-org-id::products::any-product-id-39485', 'orgs::*::users'],
+      ['orgs::any-org-id::users::any-user-id-39485:products', 'orgs::*::users'],
+    ].forEach(([req, perm]) => {
+      expect(
+        operator.isDenied(req!, perm!)
+      ).toBe(
+        operator.isAllowed(req!, perm!)
+      );
     });
   });
 });

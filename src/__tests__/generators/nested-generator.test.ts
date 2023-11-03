@@ -1,6 +1,6 @@
 import { NestedGenerator } from '../../operators/nested-generator';
 
-describe('NestedRiGenerator with default ri pattern', () => {
+describe('NestedGenerator with default ri pattern', () => {
   const operator = new NestedGenerator();
 
   test('should generate the same as single resource passed', () => {
@@ -8,7 +8,7 @@ describe('NestedRiGenerator with default ri pattern', () => {
   });
 });
 
-describe('NestedRiGenerator', () => {
+describe('NestedGenerator', () => {
   const operator = new NestedGenerator({ wildcard: '+', separator: ':', resourceRegex: '[a-z]+' });
 
   test('should contain the separator when having more than 1 resource passed', () => {

@@ -15,12 +15,19 @@ interface ActionValue {
  *    }
  *  );
  * 
- *  operator.isMatch('create', '*'); // true
- *  operator.isMatch('get', 'edit'); // true 
- *  operator.isMatch('get', 'get'); // true 
- *  operator.isMatch('delete', 'delete'); // true 
- *  operator.isMatch('get', 'create'); // false 
- *  operator.isMatch('get', 'delete'); // false 
+ *  operator.isAllowed('create', '*'); // true
+ *  operator.isAllowed('get', 'edit'); // true 
+ *  operator.isAllowed('get', 'get'); // true 
+ *  operator.isAllowed('delete', 'delete'); // true 
+ *  operator.isAllowed('get', 'create'); // false 
+ *  operator.isAllowed('get', 'delete'); // false
+ * 
+ *  
+ *  operator.isDenied('create', 'create'); // true
+ * 
+ *  // Note: If the permission deny policy includes 'create', and 'create' can still perform 'edit' in the allow policy,
+ *  // it will not deny 'edit'.
+ *  operator.isDenied('edit', 'create'); // false
  * ```
  */
 export class RelationComparator implements Comparator {
@@ -38,20 +45,18 @@ export class RelationComparator implements Comparator {
     return !!(this.definitionValues[requestCode]! & this.relationValues[permissionCode]!);
   }
 
+  /**
+   * - actions: `['view', 'click']`
+   * - relationship: `{ click: ['view'] }`
+   * 
+   * Meaning:
+   * - Denying **"click"** in the state means only denying **"click"**, it does not imply denying **"view"**.
+   * - Denying **"view"** in the state means only denying **"view"**, it does not imply denying **"click"**.
+   */
   isDenied(requestCode: string, permissionCode: string): boolean {
-    // FIXME::there a bug about checking it on deny logic, fix it before release new version
-    return this.isAllowed(requestCode, permissionCode);
+    return requestCode === permissionCode;
   }
 
-  /**
-   * Define bit flags for each action, and we can easily compare after that,
-   * if a action that contains other it will have the sum of those action values
-   * create, edit, delete, read = [1,2,4,8]
-   * - create: edit, read = 2 + 8 + 1 = 11
-   * - edit: read = 8 + 2 = 10
-   * - delete: read = 8 + 4 = 12
-   * - read = 8
-   */ 
   private formatActionRelation(actions: string[], relationship: Record<string, string[]>) {
     this.definitionValues = actions.reduce(
       (pre, cur, index) => {

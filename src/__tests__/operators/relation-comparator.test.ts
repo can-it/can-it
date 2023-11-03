@@ -1,6 +1,6 @@
 import { RelationComparator } from '../../operators/relation-comparator';
 
-describe('NestedActionOperator: action is not mentioned in the "relationship" object', () => {
+describe('RelationComparator: action is not mentioned in the "relationship" object', () => {
   const operator = new RelationComparator(
     ['create', 'edit', 'delete', 'get', '*'],
     {
@@ -22,7 +22,7 @@ describe('NestedActionOperator: action is not mentioned in the "relationship" ob
 });
 
 // eslint-disable-next-line max-lines-per-function
-describe('NestedActionOperator: mention with some other actions in the "relationship" object', () => {
+describe('RelationComparator: mention with some other actions in the "relationship" object', () => {
   const operator = new RelationComparator(
     ['create', 'edit', 'delete', 'get', '*'],
     {
@@ -69,7 +69,7 @@ describe('NestedActionOperator: mention with some other actions in the "relation
   });
 });
 
-describe('NestedActionOperator: do not support inheritance in "relationship" action', () => {
+describe('RelationComparator: do not support inheritance in "relationship" action', () => {
   const operator = new RelationComparator(
     ['create', 'edit', 'get'],
     {
@@ -86,7 +86,7 @@ describe('NestedActionOperator: do not support inheritance in "relationship" act
   });
 });
 
-describe('NestedActionOperator with incorrect action relationship', () => {
+describe('RelationComparator with incorrect action relationship', () => {
   const operator = new RelationComparator(
     ['edit', 'get'],
     {
@@ -103,5 +103,21 @@ describe('NestedActionOperator with incorrect action relationship', () => {
     expect(operator.isAllowed('unknown-action', 'unknow-action')).toBe(false);
     expect(operator.isAllowed('edit', 'unknow-action')).toBe(false);
     expect(operator.isAllowed('unknown-action', 'edit')).toBe(false);
+  });
+});
+
+describe('RelationComparator.isDenied', () => {
+  const operator = new RelationComparator(
+    ['view', 'click'],
+    { click: ['view'] }
+  );
+  
+  test('should deny when match exactly between request and permission value', () => {
+    expect(operator.isDenied('click', 'click')).toBe(true);
+    expect(operator.isDenied('create', 'CrEate')).toBe(operator.isAllowed('create', 'CrEate'));
+  });
+
+  test('should not deny, even the request value is the permission\'s child value', () => {
+    expect(operator.isDenied('view', 'click')).toBe(false);
   });
 });
