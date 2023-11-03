@@ -4,6 +4,7 @@ interface ActionValue {
   [action: string]: number;
 }
 
+const MAX_SUPPORT_BITS = 32; // bytes
 /**
  * ```typescript
  *  const operator = new RelationActionOperator(
@@ -38,6 +39,12 @@ export class RelationComparator implements Comparator {
     actions: string[],
     relationship: Record<string, string[]>
   ) {
+    // TODO:: I will improve this problem later
+    if (actions.length > MAX_SUPPORT_BITS) {
+      throw new Error(`This comparator only supports up to ${MAX_SUPPORT_BITS} codes.
+You provided ${actions.length} codes. The codes you provided are:
+    [${actions.toString()}]`);
+    }
     this.formatActionRelation(actions, relationship!);
   }
   
