@@ -89,6 +89,9 @@ console.log(
     comparator.isAllowed('delete', 'delete'); // true 
     comparator.isAllowed('get', 'create'); // false 
     comparator.isAllowed('get', 'delete'); // false 
+
+    comparator.isDenied('get', 'edit'); // false, denied the "edit", it does not necessarily mean denying the "view" action.
+    comparator.isDenied('edit', 'edit'); // true 
     ```
   - `NestedComparator`: This operator is used for handling nested values. It provides a way to define and work with hierarchical relationships between values (usually resources). Here are a few use cases to help you understand the functionality of the NestedOperator:
 
