@@ -6,11 +6,7 @@ export class CanIt {
     private policyState: PolicyState,
     private actionOperator: Comparator,
     private riOperator: Comparator,
-  ) {
-    this.policyState = policyState;
-    this.actionOperator = actionOperator as Comparator;
-    this.riOperator = riOperator as Comparator;
-  }
+  ) {}
 
   allowTo(action: string, resourceIdentity: string) {
     if (this.policyState.deny?.find(p => this.isRequestDenied([action, resourceIdentity], p))) {
