@@ -28,7 +28,8 @@
     "permissions",
     "rbac",
     "acl",
-    "user policy"
+    "user policy",
+    "can-it"
   ],
   "author": "Hai Le <haile.vnm@gmail.com>",
   "license": "MIT",
