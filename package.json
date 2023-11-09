@@ -1,8 +1,10 @@
 {
-  "name": "can-it",
+  "name": "@can-it/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "new-lib": "nx g @nx/js:lib"
+  },
   "private": true,
   "dependencies": {
     "@swc/helpers": "~0.5.2",
