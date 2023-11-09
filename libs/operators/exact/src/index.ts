@@ -1,1 +1,1 @@
-export * from './lib/operators-exact';
+export * from './lib/exact-comparator';
