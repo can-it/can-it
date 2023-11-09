@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@can-it/core": ["libs/core/src/index.ts"],
+      "@can-it/operators-exact": ["libs/operators/exact/src/index.ts"],
       "@can-it/shared/types": ["libs/shared/types/src/index.ts"]
     }
   },
