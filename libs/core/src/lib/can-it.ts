@@ -1,6 +1,6 @@
 import { Request } from './types/request';
 import { Permission, PolicyState } from './types/policy-state';
-import { Comparator } from './types/comparator';
+import { Comparator } from '@can-it/shared/types';
 export class CanIt {
   constructor(
     private policyState: PolicyState,
@@ -12,7 +12,7 @@ export class CanIt {
     if (this.policyState.deny?.find(p => this.isRequestDenied([action, resourceIdentity], p))) {
       return false;
     }
-  
+
     return !!this.policyState.allow.find(p => this.isRequestAllowed([action, resourceIdentity], p));
   }
 

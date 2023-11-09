@@ -1,4 +1,4 @@
-import { Comparator } from '../types/comparator';
+import { Comparator } from '@can-it/shared/types';
 
 export class ExactComparator implements Comparator {
   isAllowed(requestCode: string, permissionCode: string) {
