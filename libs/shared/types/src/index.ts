@@ -1,1 +1,2 @@
-export * from './lib/shared/types';
+export * from './lib/comparator';
+export * from './lib/generator';
