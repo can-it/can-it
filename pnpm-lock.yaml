@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@can-it/core-local':
+        specifier: link:dist\libs\core
+        version: link:dist/libs/core
       '@swc/helpers':
         specifier: ~0.5.2
         version: 0.5.3
