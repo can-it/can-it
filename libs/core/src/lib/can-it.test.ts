@@ -1,4 +1,4 @@
-import { CanIt } from '../can-it';
+import { CanIt } from "./can-it";
 
 describe('CanIt', () => {
   const equal = (a: string, b: string) => a === b;
@@ -52,7 +52,7 @@ describe('CanIt with DENY', () => {
   test('should receive false if request appear in deny permissions', () => {
     expect(canIt.allowTo('delete', 'users')).toBe(false);
   });
-  
+
   test('should receive false if it appears in both "allow" and "deny" permissions', () => {
     expect(canIt.allowTo('delete', 'products')).toBe(false);
   });

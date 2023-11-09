@@ -1,6 +1,35 @@
 {
   "name": "@can-it/core",
-  "version": "0.0.1",
+  "version": "0.4.0",
+  "description": "",
+  "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "lint": "eslint . --ext .ts",
+    "lifi": "eslint . --ext .ts --fix",
+    "build": "tsc",
+    "test": "jest --collect-coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/can-it/core.git"
+  },
+  "keywords": [
+    "authorize",
+    "permissions",
+    "rbac",
+    "acl",
+    "user policy",
+    "can-it"
+  ],
+  "author": "Hai Le <haile.vnm@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/can-it/core/issues"
+  },
+  "homepage": "https://github.com/can-it/core#readme",
   "dependencies": {
     "@swc/helpers": "~0.5.2"
   },

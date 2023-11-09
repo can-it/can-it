@@ -17,7 +17,7 @@
   "module": {
     "type": "commonjs"
   },
-  "sourceMaps": true,
+  "sourceMaps": false,
   "exclude": [
     "jest.config.ts",
     ".*\\.spec.tsx?$",
