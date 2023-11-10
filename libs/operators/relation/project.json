@@ -1,0 +1,47 @@
+{
+  "name": "operators-relation",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/operators/relation/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:swc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/operators/relation",
+        "main": "libs/operators/relation/src/index.ts",
+        "tsConfig": "libs/operators/relation/tsconfig.lib.json",
+        "assets": ["libs/operators/relation/*.md"]
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs operators-relation {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/operators/relation/**/*.ts",
+          "libs/operators/relation/package.json"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/operators/relation/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
