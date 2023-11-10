@@ -1,6 +1,23 @@
 {
   "name": "@can-it/operators-nested",
-  "version": "0.0.1",
+  "version": "0.0.2",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/can-it/operators.git"
+  },
+  "author": "Hai Le <haile.vnm@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/can-it/operators/issues"
+  },
+  "homepage": "https://github.com/can-it/operators#readme",
+  "keywords": [
+    "can-it",
+    "can-it-operators"
+  ],
   "dependencies": {
     "@swc/helpers": "~0.5.2"
   },
