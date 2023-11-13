@@ -9,19 +9,19 @@ The `RelationComparator` is an operator provided by the `@can-it/core` package. 
 ```typescript
 import { RelationComparator } from '@can-it/operators-relation';
 
-const comparator = new RelationComparator(['create', 'edit', 'delete', 'get', '*'], {
+const actionComparator = new RelationComparator(['create', 'edit', 'delete', 'get', '*'], {
   edit: ['get'], // The "edit" action allows performing the "get" action.
   create: ['edit', 'get'], // The "create" action allows performing the "edit" and "get" actions.
-  ['*']: ['create', 'edit', 'delete', 'get'], // The "*" action allows performing all other actions.
+  ['*']: [], // The "*" action uses an empty array ([]), allowing for performing all other actions.
 });
 
-comparator.isAllowed('create', '*'); // true
-comparator.isAllowed('get', 'edit'); // true
-comparator.isAllowed('get', 'get'); // true
-comparator.isAllowed('delete', 'delete'); // true
-comparator.isAllowed('get', 'create'); // false
-comparator.isAllowed('get', 'delete'); // false
+actionComparator.isAllowed('create', '*'); // true
+actionComparator.isAllowed('get', 'edit'); // true
+actionComparator.isAllowed('get', 'get'); // true
+actionComparator.isAllowed('delete', 'delete'); // true
+actionComparator.isAllowed('get', 'create'); // false
+actionComparator.isAllowed('get', 'delete'); // false
 
-comparator.isDenied('get', 'edit'); // false - denying the "edit" action does not necessarily mean denying the "view" action.
-comparator.isDenied('edit', 'edit'); // true
+actionComparator.isDenied('get', 'edit'); // false - denying the "edit" action does not necessarily mean denying the "view" action.
+actionComparator.isDenied('edit', 'edit'); // true
 ```
