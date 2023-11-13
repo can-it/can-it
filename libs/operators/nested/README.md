@@ -39,10 +39,10 @@ import { NestedGenerator } from '@can-it/operators-nested';
 
 const generator = new NestedGenerator();
 // The input will be passed with the `requestCode` and `permissionCode` in order.
-generator.isAllowed('orgs'); // `'orgs'`
-generator.isAllowed('orgs', '', 'users'); // `'orgs::*::users'` (an empty string will be processed as a wildcard signal).
-generator.isAllowed('orgs', 'any-org-id-9585'); // `'orgs::any-org-id-9585'`
-generator.isAllowed('orgs', 'any-org-id-9585', 'users', 'user-id-73jg4k'); // `'orgs::any-org-id-9585::users::user-id-73jg4k'`
+generator.transform('orgs'); // `'orgs'`
+generator.transform('orgs', '', 'users'); // `'orgs::*::users'` (an empty string will be processed as a wildcard signal).
+generator.transform('orgs', 'any-org-id-9585'); // `'orgs::any-org-id-9585'`
+generator.transform('orgs', 'any-org-id-9585', 'users', 'user-id-73jg4k'); // `'orgs::any-org-id-9585::users::user-id-73jg4k'`
 ```
 
 - `NestedComparator` is an operator used to check whether a request can match the given permission.
