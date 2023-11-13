@@ -42,12 +42,12 @@ export class RelationComparator implements Comparator {
 You provided ${actions.length} codes. The codes you provided are:
     [${actions.toString()}]`);
     }
-    this.formatActionRelation(actions, relationship!);
+    this.formatActionRelation(actions, relationship);
   }
 
   isAllowed(requestCode: string, permissionCode: string) {
     return !!(
-      this.definitionValues[requestCode]! & this.relationValues[permissionCode]!
+      this.definitionValues[requestCode] & this.relationValues[permissionCode]
     );
   }
 
@@ -73,9 +73,17 @@ You provided ${actions.length} codes. The codes you provided are:
     }, {} as ActionValue);
 
     this.relationValues = actions.reduce((pre, action) => {
-      const relationValue = (relationship[action] || []).reduce(
+      if (relationship[action]) {
+        pre[action] = this.definitionValues[action];
+        return pre;
+      }
+
+      // If an action specifies its child action as an empty array, it will be known as containing all other actions.
+      const childActions = relationship[action].length === 0 ? actions : relationship[action];
+
+      const relationValue = childActions.reduce(
         (sum, v) => sum + (this.definitionValues[v] || 0),
-        this.definitionValues[action]!
+        this.definitionValues[action]
       );
 
       pre[action] = relationValue;
