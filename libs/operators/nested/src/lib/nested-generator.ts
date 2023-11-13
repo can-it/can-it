@@ -29,11 +29,11 @@ export class NestedGenerator implements Generator {
    *
    * Example usage:
    * ```typescript
-   * generate(['orgs', '', 'users', '']); // 'orgs::*::users::*'
+   * transform('orgs', '', 'users', ''); // 'orgs::*::users::*'
    * ```
    */
-  transform(resources: string[]) {
-    this.validateResources(resources);
+  transform(...resources: string[]) {
+    this.validateResources([...resources]);
 
     return resources
       .map((ri) => ri || this.riPattern.wildcard)
