@@ -37,8 +37,8 @@ const canIt = new CanIt(
       ['delete', 'users']
     ]
   },
-  new ExactComparator(),
-  new ExactComparator()
+  new ExactComparator(), // You can leave it as undefined; it will use the ExactComparator as the default.
+  new ExactComparator() // You can leave it as undefined; it will use the ExactComparator as the default.
 );
 
 // Check whether a request is allowed or not
