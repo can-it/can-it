@@ -1,7 +1,21 @@
-# types
+# @can-it/types
 
-This library was generated with [Nx](https://nx.dev).
+This package contains type definitions for [can-it operator packages](https://www.npmjs.com/search?q=keywords:can-it-operators).
 
-## Building
+## Installation
 
-Run `nx build types` to build the library.
+```bash
+npm i -D @can-it/types
+```
+
+or
+
+```bash
+pnpm add -D @can-it/types
+```
+
+or
+
+```bash
+yarn add -D @can-it/types
+```
