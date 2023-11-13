@@ -1,6 +1,22 @@
 {
   "name": "@can-it/types",
   "version": "0.0.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/can-it/core.git"
+  },
+  "author": "Hai Le <haile.vnm@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/can-it/core/issues"
+  },
+  "homepage": "https://github.com/can-it/core#readme",
+  "keywords": [
+    "can-it"
+  ],
   "dependencies": {
     "@swc/helpers": "~0.5.2"
   },
