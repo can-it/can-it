@@ -1,7 +1,8 @@
-import { Comparator } from "@can-it/shared/types";
+import { Comparator } from '@can-it/types';
 import { NestedPattern } from '../types/nested-pattern';
 import { DEFAULT_RI_PATTERN } from './constants';
-const escapeRegex = (text: string) => text.replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\$&');
+const escapeRegex = (text: string) =>
+  text.replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\$&');
 
 /**
  * Ri definition:
@@ -22,9 +23,7 @@ const escapeRegex = (text: string) => text.replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\
  * - Access product Z of user X at organization Y: `orgs::Y::users::X::products::Z`
  */
 export class NestedComparator implements Comparator {
-  constructor(
-    private riPattern: NestedPattern = DEFAULT_RI_PATTERN
-  ) {}
+  constructor(private riPattern: NestedPattern = DEFAULT_RI_PATTERN) {}
 
   isAllowed(ri: string, permissionRi: string) {
     return this.getTestableRi(permissionRi).test(ri);
@@ -35,14 +34,24 @@ export class NestedComparator implements Comparator {
   }
 
   private getTestableRi(ri: string) {
-    const resourceWildcardRegex = new RegExp(`${escapeRegex(this.riPattern.wildcard + this.riPattern.separator)}`, 'g');
-    const endWildcardRegex = new RegExp(`${escapeRegex(this.riPattern.separator + this.riPattern.wildcard)}$`);
-    const testableRi =
-      ri
-        // replace all the wildcard that appears at start and center of a ri
-        .replace(resourceWildcardRegex, `${this.riPattern.resourceRegex}${this.riPattern.separator}`)
-        // if the wildcard appears at the end, mean we only support up to that level
-        .replace(endWildcardRegex, `(${this.riPattern.separator}${this.riPattern.resourceRegex})?$`);
+    const resourceWildcardRegex = new RegExp(
+      `${escapeRegex(this.riPattern.wildcard + this.riPattern.separator)}`,
+      'g'
+    );
+    const endWildcardRegex = new RegExp(
+      `${escapeRegex(this.riPattern.separator + this.riPattern.wildcard)}$`
+    );
+    const testableRi = ri
+      // replace all the wildcard that appears at start and center of a ri
+      .replace(
+        resourceWildcardRegex,
+        `${this.riPattern.resourceRegex}${this.riPattern.separator}`
+      )
+      // if the wildcard appears at the end, mean we only support up to that level
+      .replace(
+        endWildcardRegex,
+        `(${this.riPattern.separator}${this.riPattern.resourceRegex})?$`
+      );
 
     return new RegExp(`^${testableRi}`);
   }

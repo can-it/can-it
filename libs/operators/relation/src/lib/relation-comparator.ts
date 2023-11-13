@@ -1,4 +1,4 @@
-import { Comparator } from '@can-it/shared/types';
+import { Comparator } from '@can-it/types';
 
 interface ActionValue {
   [action: string]: number;
@@ -35,10 +35,7 @@ export class RelationComparator implements Comparator {
   private relationValues!: ActionValue;
   private definitionValues!: ActionValue;
 
-  constructor(
-    actions: string[],
-    relationship: Record<string, string[]>
-  ) {
+  constructor(actions: string[], relationship: Record<string, string[]>) {
     // TODO:: I will improve this problem later
     if (actions.length > MAX_SUPPORT_BITS) {
       throw new Error(`This comparator only supports up to ${MAX_SUPPORT_BITS} codes.
@@ -49,7 +46,9 @@ You provided ${actions.length} codes. The codes you provided are:
   }
 
   isAllowed(requestCode: string, permissionCode: string) {
-    return !!(this.definitionValues[requestCode]! & this.relationValues[permissionCode]!);
+    return !!(
+      this.definitionValues[requestCode]! & this.relationValues[permissionCode]!
+    );
   }
 
   /**
@@ -64,14 +63,14 @@ You provided ${actions.length} codes. The codes you provided are:
     return requestCode === permissionCode;
   }
 
-  private formatActionRelation(actions: string[], relationship: Record<string, string[]>) {
-    this.definitionValues = actions.reduce(
-      (pre, cur, index) => {
-        pre[cur] = 1 << index;
-        return pre;
-      },
-      {} as ActionValue
-    );
+  private formatActionRelation(
+    actions: string[],
+    relationship: Record<string, string[]>
+  ) {
+    this.definitionValues = actions.reduce((pre, cur, index) => {
+      pre[cur] = 1 << index;
+      return pre;
+    }, {} as ActionValue);
 
     this.relationValues = actions.reduce((pre, action) => {
       const relationValue = (relationship[action] || []).reduce(

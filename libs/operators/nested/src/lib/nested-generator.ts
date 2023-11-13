@@ -1,4 +1,4 @@
-import { Generator } from '@can-it/shared/types';
+import { Generator } from '@can-it/types';
 import { NestedPattern } from '../types/nested-pattern';
 import { DEFAULT_RI_PATTERN } from './constants';
 /**
@@ -18,9 +18,7 @@ import { DEFAULT_RI_PATTERN } from './constants';
 export class NestedGenerator implements Generator {
   private resourceRegex: RegExp;
 
-  constructor(
-    private riPattern: NestedPattern = DEFAULT_RI_PATTERN
-  ) {
+  constructor(private riPattern: NestedPattern = DEFAULT_RI_PATTERN) {
     this.resourceRegex = new RegExp(`^${this.riPattern.resourceRegex}$`);
   }
 
@@ -38,12 +36,14 @@ export class NestedGenerator implements Generator {
     this.validateResources(resources);
 
     return resources
-      .map(ri => ri || this.riPattern.wildcard)
+      .map((ri) => ri || this.riPattern.wildcard)
       .join(this.riPattern.separator);
   }
 
   private validateResources(resources: string[]) {
-    resources.filter(Boolean).forEach(resource => this.validateResource(resource));
+    resources
+      .filter(Boolean)
+      .forEach((resource) => this.validateResource(resource));
   }
 
   private validateResource(ri: string) {
@@ -51,6 +51,8 @@ export class NestedGenerator implements Generator {
       return;
     }
 
-    throw new Error(`The resource does not match the provided "resourceRegex: ${this.riPattern.resourceRegex}"`);
+    throw new Error(
+      `The resource does not match the provided "resourceRegex: ${this.riPattern.resourceRegex}"`
+    );
   }
 }

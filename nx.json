@@ -27,5 +27,10 @@
     "e2e": {
       "cache": true
     }
+  },
+  "generators": {
+    "@nx/workspace:move": {
+      "projectNameAndRootFormat": "as-provided"
+    }
   }
 }
