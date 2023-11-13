@@ -21,6 +21,9 @@
   "dependencies": {
     "@swc/helpers": "~0.5.2"
   },
+  "devDependencies": {
+    "@can-it/types": "^0.0.1"
+  },
   "type": "commonjs",
   "main": "./src/index.js",
   "typings": "./src/index.d.ts"

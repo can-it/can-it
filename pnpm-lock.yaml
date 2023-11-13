@@ -94,6 +94,19 @@ importers:
         specifier: ^5.0.4
         version: 5.27.0(typanion@3.14.0)
 
+  libs/core:
+    dependencies:
+      '@can-it/operators-exact':
+        specifier: ^0.0.1
+        version: 0.0.1
+      '@swc/helpers':
+        specifier: ~0.5.2
+        version: 0.5.3
+    devDependencies:
+      '@can-it/types':
+        specifier: ^0.0.1
+        version: 0.0.1
+
 packages:
 
   /@aashutoshrathi/word-wrap@1.2.6:
@@ -1362,6 +1375,18 @@ packages:
 
   /@bcoe/v8-coverage@0.2.3:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
+    dev: true
+
+  /@can-it/operators-exact@0.0.1:
+    resolution: {integrity: sha512-+CggUolWg6KAbRd4WYMzUjRFjIZ9nniKgmMlv2gDGFmpky/xQG8THI9sLadocE6CHIRH5npbpiyXrzSbgjlbMg==}
+    dependencies:
+      '@swc/helpers': 0.5.3
+    dev: false
+
+  /@can-it/types@0.0.1:
+    resolution: {integrity: sha512-jg9oQNtRzCSzA1iYOt+4tAfZlVk1r22BeAn6S4zAIyFHBv6VvO950EBsqgiVZzkpwKgdTmuN9wV5QTFWfksG2w==}
+    dependencies:
+      '@swc/helpers': 0.5.3
     dev: true
 
   /@cspotcode/source-map-support@0.8.1:
