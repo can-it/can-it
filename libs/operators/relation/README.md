@@ -9,11 +9,14 @@ The `RelationComparator` is an operator provided by the `@can-it/core` package. 
 ```typescript
 import { RelationComparator } from '@can-it/operators-relation';
 
-const actionComparator = new RelationComparator(['create', 'edit', 'delete', 'get', '*'], {
-  edit: ['get'], // The "edit" action allows performing the "get" action.
-  create: ['edit', 'get'], // The "create" action allows performing the "edit" and "get" actions.
-  ['*']: [], // The "*" action uses an empty array ([]), allowing for performing all other actions.
-});
+const actionComparator = new RelationComparator(
+  ['create', 'edit', 'delete', 'get', '*'],
+  {
+    edit: ['get'], // The "edit" action allows performing the "get" action.
+    create: ['edit', 'get'], // The "create" action allows performing the "edit" and "get" actions.
+    ['*']: [], // The "*" action uses an empty array ([]), allowing for performing all other actions.
+  }
+);
 
 actionComparator.isAllowed('create', '*'); // true
 actionComparator.isAllowed('get', 'edit'); // true
