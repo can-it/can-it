@@ -33,7 +33,7 @@ export class NestedGenerator implements Generator {
    * ```
    */
   transform(...resources: string[]) {
-    this.validateResources([...resources]);
+    this.validateResources(resources);
 
     return resources
       .map((ri) => ri || this.riPattern.wildcard)
