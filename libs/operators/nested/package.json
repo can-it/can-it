@@ -6,14 +6,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/can-it/operators.git"
+    "url": "git+https://github.com/can-it/core.git"
   },
   "author": "Hai Le <haile.vnm@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/can-it/operators/issues"
+    "url": "https://github.com/can-it/core/issues"
   },
-  "homepage": "https://github.com/can-it/operators#readme",
+  "homepage": "https://github.com/can-it/core#readme",
   "keywords": [
     "can-it",
     "can-it-operators"
