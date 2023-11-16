@@ -24,11 +24,11 @@ describe('RelationComparator: action is not mentioned in the "relationship" obje
 // eslint-disable-next-line max-lines-per-function
 describe('RelationComparator: mention with some other actions in the "relationship" object', () => {
   const operator = new RelationComparator(
-    ['create', 'edit', 'delete', 'get', '*'],
+    ['*', 'create', 'edit', 'delete', 'get'],
     {
       edit: ['get'], // the "edit" action will allow to perform "get" action
       create: ['edit', 'get'], // the "create" action will also allow to perform "edit", "get" action,
-      ['*']: ['create', 'edit', 'delete', 'get']
+      ['*']: []
     }
   );
 

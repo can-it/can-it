@@ -73,16 +73,16 @@ You provided ${actions.length} codes. The codes you provided are:
     }, {} as ActionValue);
 
     this.relationValues = actions.reduce((pre, action) => {
-      if (relationship[action]) {
+      if (!relationship[action]) {
         pre[action] = this.definitionValues[action];
         return pre;
       }
 
       // If an action specifies its child action as an empty array, it will be known as containing all other actions.
-      const childActions = relationship[action].length === 0 ? actions : relationship[action];
+      const childActions = relationship[action]?.length === 0 ? actions : relationship[action];
 
       const relationValue = childActions.reduce(
-        (sum, v) => sum + (this.definitionValues[v] || 0),
+        (sum, v) => sum | (this.definitionValues[v] || 0),
         this.definitionValues[action]
       );
 
