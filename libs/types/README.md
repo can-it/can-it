@@ -1,6 +1,6 @@
 # @can-it/types
 
-This package contains type definitions for [can-it operator packages](https://www.npmjs.com/search?q=keywords:can-it-operators).
+This package contains type definitions for [can-it packages](https://www.npmjs.com/search?q=keywords:can-it).
 
 ## Installation
 
