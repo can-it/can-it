@@ -29,7 +29,7 @@
   "bugs": {
     "url": "https://github.com/can-it/core/issues"
   },
-  "homepage": "https://github.com/can-it/core#readme",
+  "homepage": "https://can-it.github.io/packages/core",
   "dependencies": {
     "@can-it/operators-exact": "^0.0.1",
     "@can-it/types": "^0.0.1",

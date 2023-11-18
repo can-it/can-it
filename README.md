@@ -1,5 +1,6 @@
 # can-it
 
+[Package Documentations](https://can-it.github.io/packages/core)
 ## Setup Environment
 To set up the environment, follow these steps:
 
