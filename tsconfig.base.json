@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@can-it/core": ["libs/core/src/index.ts"],
+      "@can-it/ngx": ["libs/ngx/src/index.ts"],
       "@can-it/operators-exact": ["libs/operators/exact/src/index.ts"],
       "@can-it/operators-nested": ["libs/operators/nested/src/index.ts"],
       "@can-it/operators-relation": ["libs/operators/relation/src/index.ts"],
