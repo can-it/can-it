@@ -20,6 +20,7 @@
       "@can-it/operators-exact": ["libs/operators/exact/src/index.ts"],
       "@can-it/operators-nested": ["libs/operators/nested/src/index.ts"],
       "@can-it/operators-relation": ["libs/operators/relation/src/index.ts"],
+      "@can-it/react": ["libs/react/src/index.ts"],
       "@can-it/types": ["libs/types/src/index.ts"]
     }
   },
