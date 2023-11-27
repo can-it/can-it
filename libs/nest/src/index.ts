@@ -1,1 +1,1 @@
-export * from './lib/nest.module';
+export * from './lib/can-it.module';

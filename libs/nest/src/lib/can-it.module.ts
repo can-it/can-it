@@ -7,4 +7,4 @@ import { CanItService } from './services/can-it.service';
   providers: [PolicyStore, CanItService],
   exports: [],
 })
-export class NestModule {}
+export class CanItModule {}
