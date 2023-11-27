@@ -1,7 +1,11 @@
-import { Injectable, NestMiddleware } from '@nestjs/common';
+import { Injectable, NestMiddleware, Scope } from '@nestjs/common';
 
-@Injectable()
+@Injectable({ scope: Scope.REQUEST })
 export class LoadPolicyMiddleware implements NestMiddleware {
+  constructor() {
+
+  }
+
   use(req: any, res: any, next: () => void) {
     next();
   }
