@@ -9,3 +9,5 @@ export const RI_RESOLVER = getConstant('RI_RESOLVER');
 export const USE_RI_RESOLVER = getConstant('use-ri-resolver');
 export const CAN_IT = getConstant('can-it');
 export const USE_POLICY_RESOLVER = getConstant('use-policy-resolver');
+
+export const CAN_IT = getConstant('can-it-instance');
