@@ -3,7 +3,11 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "new-lib": "nx g @nx/js:lib"
+    "new-lib": "nx g @nx/js:lib",
+    "nest:g:s": "npx nx g @nx/nest:service --directory=libs/nest/src/lib/services --nameAndDirectoryFormat=as-provided",
+    "nest:g:d": "npx nx g @nx/nest:decorator --directory=libs/nest/src/lib/decorators --nameAndDirectoryFormat=as-provided",
+    "nest:g:m": "npx nx g @nx/nest:middleware --directory=libs/nest/src/lib/middlewares --nameAndDirectoryFormat=as-provided",
+    "nest:g:g": "npx nx g @nx/nest:guard --directory=libs/nest/src/lib/guards --nameAndDirectoryFormat=as-provided"
   },
   "private": true,
   "dependencies": {
