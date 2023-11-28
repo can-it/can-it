@@ -10,7 +10,7 @@ export class LoadRiMiddleware implements NestMiddleware {
     @Inject(RI_RESOLVER) private riResolver: (req: unknown) => ResourceState
   ) {}
 
-  async use(req: unknown, res: unknown, next: () => void) {
+  async use(req: unknown, _res: unknown, next: () => void) {
     this.riStore.state = await this.riResolver(req);
 
     next();
