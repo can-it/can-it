@@ -1,6 +1,6 @@
 const PACKAGE_PREFIX = '@can-it/nest';
 
-export const getConstant = (key: string) => [PACKAGE_PREFIX, '__', key].join()
+const getConstant = (key: string) => [PACKAGE_PREFIX, '__', key].join()
 
 export const COMPARATORS = getConstant('COMPARATORS');
 export const POLICY_RESOLVER = getConstant('POLICY_RESOLVER');
