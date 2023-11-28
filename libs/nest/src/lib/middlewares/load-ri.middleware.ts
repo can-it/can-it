@@ -1,8 +1,18 @@
-import { Injectable, NestMiddleware } from '@nestjs/common';
+import { Inject, Injectable, NestMiddleware } from '@nestjs/common';
+import { RiStore } from '../services/ri-store.service';
+import { RI_RESOLVER } from '../token';
+import { ResourceState } from '@can-it/types';
 
 @Injectable()
 export class LoadRiMiddleware implements NestMiddleware {
-  use(req: any, res: any, next: () => void) {
+  constructor(
+    private riStore: RiStore,
+    @Inject(RI_RESOLVER) private riResolver: (req: unknown) => ResourceState
+  ) {}
+
+  async use(req: unknown, res: unknown, next: () => void) {
+    this.riStore.state = await this.riResolver(req);
+
     next();
   }
 }
