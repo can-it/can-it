@@ -1,5 +1,8 @@
-import { Request } from '@can-it/types';
 import { SetMetadata } from '@nestjs/common';
 import { CAN_IT } from '../constants';
+import { RiResolver } from '../models/ri-resolver';
 
-export const CanIt = (...request: Request) => SetMetadata(CAN_IT, request);
+export const CanIt = (
+  action: string,
+  ri?: string | RiResolver
+) => SetMetadata(CAN_IT, [action, ri]);
