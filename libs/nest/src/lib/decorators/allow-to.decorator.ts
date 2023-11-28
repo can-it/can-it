@@ -1,12 +1,12 @@
 import { ExecutionContext, createParamDecorator } from '@nestjs/common';
 import { CAN_IT_INSTANCE } from '../constants';
-import { CanItService } from '../services/can-it.service';
+import { CanIt } from '@can-it/core';
 
-export const AllowTo = createParamDecorator<unknown, ExecutionContext, CanItService['allowTo']>(
+export const AllowTo = createParamDecorator<unknown, ExecutionContext, CanIt['allowTo']>(
   (_data: unknown, ctx: ExecutionContext) => {
     const req = ctx.switchToHttp().getRequest();
 
-    const canIt = req[CAN_IT_INSTANCE] as CanItService;
+    const canIt = req[CAN_IT_INSTANCE] as CanIt;
 
     return canIt.allowTo.bind(canIt);
   }
