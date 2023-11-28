@@ -10,15 +10,16 @@ import {
   USE_POLICY_RESOLVER,
   USE_RI_RESOLVER
 } from '../constants';
-import { Comparator, Request } from '@can-it/types';
+import { Comparator, PolicyState, Request } from '@can-it/types';
 import { CanIt } from '@can-it/core';
 import { RiResolver } from '../models/ri-resolver';
+import { RequestConsumer } from '../models/policy-resolver';
 
 @Injectable()
 export class CanItGuard implements CanActivate {
   constructor(
     private reflector: Reflector,
-    @Inject(POLICY_RESOLVER) private policyResolver: unknown,
+    @Inject(POLICY_RESOLVER) private policyResolver: RequestConsumer<PolicyState>,
     @Inject(RI_RESOLVER) @Optional() private moduleRiResolver?: RiResolver,
     @Inject(COMPARATORS) @Optional() private comparators?: { action?: Comparator, ri?: Comparator }
   ) {}
