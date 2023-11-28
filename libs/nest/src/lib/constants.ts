@@ -6,8 +6,4 @@ export const COMPARATORS = getConstant('COMPARATORS');
 export const POLICY_RESOLVER = getConstant('POLICY_RESOLVER');
 export const RI_RESOLVER = getConstant('RI_RESOLVER');
 
-export const USE_RI_RESOLVER = getConstant('use-ri-resolver');
-export const CAN_IT = getConstant('can-it');
-export const USE_POLICY_RESOLVER = getConstant('use-policy-resolver');
-
-export const CAN_IT_INSTANCE = getConstant('can-it-instance');
+export const CAN_IT = getConstant('CAN_IT');
