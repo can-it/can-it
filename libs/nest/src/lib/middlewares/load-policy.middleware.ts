@@ -1,6 +1,6 @@
 import { Inject, Injectable, NestMiddleware, Scope } from '@nestjs/common';
 import { PolicyStore } from '../services/policy-store.service';
-import { POLICY_RESOLVER } from '../token';
+import { POLICY_RESOLVER } from '../constants';
 import { PolicyState } from '@can-it/types';
 
 @Injectable({ scope: Scope.REQUEST })

@@ -1,6 +1,6 @@
 import { Inject, Injectable, NestMiddleware } from '@nestjs/common';
 import { RiStore } from '../services/ri-store.service';
-import { RI_RESOLVER } from '../token';
+import { RI_RESOLVER } from '../constants';
 import { ResourceState } from '@can-it/types';
 
 @Injectable()
