@@ -12,6 +12,8 @@
     "authorization",
     "permissions",
     "rbac",
+    "pbac",
+    "abac",
     "acl",
     "user policy",
     "nest",
@@ -24,10 +26,10 @@
   "bugs": {
     "url": "https://github.com/can-it/core/issues"
   },
-  "homepage": "https://can-it.github.io/packages/ngx",
+  "homepage": "https://can-it.github.io/packages/nest",
   "dependencies": {
     "tslib": "^2.3.0",
-    "@can-it/core": "^0.5.3"
+    "@can-it/core": "^0.5.4"
   },
   "devDependencies": {
     "@can-it/types": "^0.0.1"
