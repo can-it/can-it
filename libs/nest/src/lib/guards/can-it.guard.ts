@@ -7,16 +7,16 @@ import {
   POLICY_RESOLVER,
   RI_RESOLVER,
 } from '../constants';
-import { Comparator, PolicyState, Request } from '@can-it/types';
+import { Comparator, Request } from '@can-it/types';
 import { CanIt } from '@can-it/core';
 import { RiResolver } from '../models/ri-resolver';
-import { RequestConsumer } from '../models/policy-resolver';
+import { PolicyResolver } from '../models/policy-resolver';
 
 @Injectable()
 export class CanItGuard implements CanActivate {
   constructor(
     private reflector: Reflector,
-    @Inject(POLICY_RESOLVER) private policyResolver: RequestConsumer<PolicyState>,
+    @Inject(POLICY_RESOLVER) private policyResolver: PolicyResolver,
     @Inject(RI_RESOLVER) @Optional() private moduleRiResolver?: RiResolver,
     @Inject(COMPARATORS) @Optional() private comparators?: { action?: Comparator, ri?: Comparator }
   ) {}
@@ -51,11 +51,11 @@ export class CanItGuard implements CanActivate {
         throw new Error('There is no "RiResolver" provided. Please make sure you added somewhere in this module.')
       }
 
-      return [action, riResolver.execute(this.getNestRequest(context))];
+      return [action, riResolver(this.getNestRequest(context))];
     }
 
-    if (ri instanceof RiResolver) {
-      return [action, ri.execute(this.getNestRequest(context))];
+    if (typeof ri !== 'string') {
+      return [action, ri(this.getNestRequest(context))];
     }
 
     return [action, ri];

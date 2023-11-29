@@ -1,1 +1,3 @@
-export type RequestConsumer<T = unknown> = (req: unknown) => T;
+import { PolicyState } from '@can-it/types';
+
+export type PolicyResolver = (req: unknown) => PolicyState;
