@@ -1,7 +1,5 @@
 export * from './lib/can-it.module';
 
-export * from './lib/constants';
-
 export * from './lib/decorators/allow-to.decorator';
 export * from './lib/decorators/can-it.decorator';
 export * from './lib/decorators/use-policy-resolver.decorator';
