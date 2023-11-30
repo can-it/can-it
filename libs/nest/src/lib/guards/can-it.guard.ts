@@ -39,11 +39,17 @@ export class CanItGuard implements CanActivate {
 
   private getCanItRequest(
     context: ExecutionContext
-  ): Request {
-    const [action, ri] = this.reflector.getAllAndOverride(
+  ): Request | undefined {
+    const request = this.reflector.getAllAndOverride(
       CAN_IT,
       [context.getHandler(), context.getClass()]
     );
+
+    if (!request) {
+      return;
+    }
+
+    const [action, ri] = request;
 
     if (!ri) {
       const riResolver = this.getRiResolver(context);
