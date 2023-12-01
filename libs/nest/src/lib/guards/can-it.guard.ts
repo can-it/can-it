@@ -24,8 +24,8 @@ export class CanItGuard implements CanActivate {
   canActivate(
     context: ExecutionContext
   ): boolean | Promise<boolean> | Observable<boolean> {
-    const request = this.getCanItRequest(context);
-    if (!request) {
+    const canItRequest = this.getCanItRequest(context);
+    if (!canItRequest) {
       return true;
     }
 
@@ -35,10 +35,10 @@ export class CanItGuard implements CanActivate {
       this.config?.comparators?.ri
     );
 
-    const req = this.getNestRequest(context);
+    const req = context.switchToHttp().getRequest();
     req[CAN_IT] = canIt;
 
-    return canIt.allowTo(...request);
+    return canIt.allowTo(...canItRequest);
   }
 
   private getCanItRequest(
@@ -93,9 +93,5 @@ export class CanItGuard implements CanActivate {
       POLICY_RESOLVER,
       [context.getHandler(), context.getClass()]
     ) || this.config?.resolvers?.policy;
-  }
-
-  private getNestRequest(context: ExecutionContext) {
-    return context.switchToHttp().getRequest();
   }
 }
