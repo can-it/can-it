@@ -11,6 +11,7 @@ import { Request } from '@can-it/types';
 import { CanIt } from '@can-it/core';
 import { RiResolver } from '../models/ri-resolver';
 import { CanItConfiguration } from '../models/configuration';
+import { PolicyResolver } from '../models/policy-resolver';
 
 @Injectable()
 export class CanItGuard implements CanActivate {
@@ -70,7 +71,7 @@ export class CanItGuard implements CanActivate {
     return [action, ri];
   }
 
-  private getRiResolver(context: ExecutionContext) {
+  private getRiResolver(context: ExecutionContext): RiResolver | undefined {
     return this.reflector.getAllAndOverride<RiResolver>(
       RI_RESOLVER,
       [context.getHandler(), context.getClass()]
@@ -78,11 +79,20 @@ export class CanItGuard implements CanActivate {
   }
 
   private getPolicy(context: ExecutionContext) {
-    const policyResolver = this.reflector.getAllAndOverride(
+    const policyResolver = this.getPolicyResolver(context);
+
+    if (!policyResolver) {
+      throw new Error('There is no "PolicyResolver" provided. Please make sure you added somewhere in this module.')
+    }
+
+    return policyResolver(context, this.moduleRef);
+  }
+
+  private getPolicyResolver(context: ExecutionContext): PolicyResolver | undefined {
+    return this.reflector.getAllAndOverride<PolicyResolver>(
       POLICY_RESOLVER,
       [context.getHandler(), context.getClass()]
     ) || this.config?.resolvers?.policy;
-    return policyResolver(this.getNestRequest(context));
   }
 
   private getNestRequest(context: ExecutionContext) {
