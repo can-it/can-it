@@ -3,22 +3,20 @@ import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
 import {
   CAN_IT,
-  COMPARATORS,
+  CAN_IT_CONFIGURATION,
   POLICY_RESOLVER,
   RI_RESOLVER,
 } from '../constants';
-import { Comparator, Request } from '@can-it/types';
+import { Request } from '@can-it/types';
 import { CanIt } from '@can-it/core';
 import { RiResolver } from '../models/ri-resolver';
-import { PolicyResolver } from '../models/policy-resolver';
+import { CanItConfiguration } from '../models/configuration';
 
 @Injectable()
 export class CanItGuard implements CanActivate {
   constructor(
     private reflector: Reflector,
-    @Inject(POLICY_RESOLVER) private policyResolver: PolicyResolver,
-    @Inject(RI_RESOLVER) @Optional() private moduleRiResolver?: RiResolver,
-    @Inject(COMPARATORS) @Optional() private comparators?: { action?: Comparator, ri?: Comparator }
+    @Inject(CAN_IT_CONFIGURATION) @Optional() private config?: CanItConfiguration
   ) {}
 
   canActivate(
@@ -29,7 +27,11 @@ export class CanItGuard implements CanActivate {
       return true;
     }
 
-    const canIt = new CanIt(this.getPolicy(context), this.comparators?.action, this.comparators?.ri);
+    const canIt = new CanIt(
+      this.getPolicy(context),
+      this.config?.comparators?.action,
+      this.config?.comparators?.ri
+    );
 
     const req = this.getNestRequest(context);
     req[CAN_IT] = canIt.allowTo.bind(canIt);
@@ -71,14 +73,14 @@ export class CanItGuard implements CanActivate {
     return this.reflector.getAllAndOverride<RiResolver>(
       RI_RESOLVER,
       [context.getHandler(), context.getClass()]
-    ) || this.moduleRiResolver;
+    ) || this.config?.resolvers?.ri;
   }
 
   private getPolicy(context: ExecutionContext) {
     const policyResolver = this.reflector.getAllAndOverride(
       POLICY_RESOLVER,
       [context.getHandler(), context.getClass()]
-    ) || this.policyResolver;
+    ) || this.config?.resolvers?.policy;
     return policyResolver(this.getNestRequest(context));
   }
 
