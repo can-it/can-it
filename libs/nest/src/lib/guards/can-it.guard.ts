@@ -1,5 +1,5 @@
 import { CanActivate, ExecutionContext, Inject, Injectable, Optional } from '@nestjs/common';
-import { Reflector } from '@nestjs/core';
+import { ModuleRef, Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
 import {
   CAN_IT,
@@ -16,6 +16,7 @@ import { CanItConfiguration } from '../models/configuration';
 export class CanItGuard implements CanActivate {
   constructor(
     private reflector: Reflector,
+    private moduleRef: ModuleRef,
     @Inject(CAN_IT_CONFIGURATION) @Optional() private config?: CanItConfiguration
   ) {}
 
@@ -34,7 +35,7 @@ export class CanItGuard implements CanActivate {
     );
 
     const req = this.getNestRequest(context);
-    req[CAN_IT] = canIt.allowTo.bind(canIt);
+    req[CAN_IT] = canIt;
 
     return canIt.allowTo(...request);
   }
@@ -42,7 +43,7 @@ export class CanItGuard implements CanActivate {
   private getCanItRequest(
     context: ExecutionContext
   ): Request | undefined {
-    const request = this.reflector.getAllAndOverride(
+    const request = this.reflector.getAllAndOverride<[string, string | RiResolver | undefined]>(
       CAN_IT,
       [context.getHandler(), context.getClass()]
     );
@@ -59,11 +60,11 @@ export class CanItGuard implements CanActivate {
         throw new Error('There is no "RiResolver" provided. Please make sure you added somewhere in this module.')
       }
 
-      return [action, riResolver(this.getNestRequest(context))];
+      return [action, riResolver(context, this.moduleRef)];
     }
 
     if (typeof ri !== 'string') {
-      return [action, ri(this.getNestRequest(context))];
+      return [action, ri(context, this.moduleRef)];
     }
 
     return [action, ri];

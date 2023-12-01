@@ -1,1 +1,4 @@
-export type RiResolver = (req: unknown) => string;
+import { ExecutionContext } from '@nestjs/common';
+import { ModuleRef } from '@nestjs/core';
+
+export type RiResolver = (context: ExecutionContext, moduleRef: ModuleRef) => string;
