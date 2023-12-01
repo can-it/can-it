@@ -23,14 +23,9 @@ export class CanItModule {
     return [
       { provide: COMPARATORS, useValue: comparators },
       { provide: POLICY_RESOLVER, useValue: resolvers.policy },
-      { provide: RI_RESOLVER, useValue: resolvers.ri }
-    ];
-  }
+      { provide: RI_RESOLVER, useValue: resolvers.ri },
 
-  static registerAppGuard(): Provider {
-    return {
-      provide: APP_GUARD,
-      useClass: CanItGuard
-    };
+      { provide: APP_GUARD, useClass: CanItGuard }
+    ];
   }
 }
