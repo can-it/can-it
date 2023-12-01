@@ -10,5 +10,3 @@ export * from './lib/guards/can-it.guard';
 export * from './lib/models/policy-resolver';
 export * from './lib/models/ri-resolver';
 export * from './lib/models/configuration';
-
-export { CAN_IT_CONFIGURATION } from './lib/constants';
