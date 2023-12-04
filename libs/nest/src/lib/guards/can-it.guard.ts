@@ -3,15 +3,14 @@ import { ModuleRef, Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
 import {
   CAN_IT,
-  CAN_IT_CONFIGURATION,
-  POLICY_RESOLVER,
-  RI_RESOLVER,
+  CAN_IT_CONFIGURATION
 } from '../constants';
 import { Request } from '@can-it/types';
 import { CanIt } from '@can-it/core';
-import { RiResolver } from '../models/ri-resolver';
 import { CanItConfiguration } from '../models/configuration';
-import { PolicyResolver } from '../models/policy-resolver';
+import { getCanItDecorator } from '../decorators/can-it.decorator';
+import { getRiResolverDecorator } from '../decorators/use-ri-resolver.decorator';
+import { getPolicyResolverDecorator } from '../decorators/use-policy-resolver.decorator';
 
 @Injectable()
 export class CanItGuard implements CanActivate {
@@ -44,10 +43,7 @@ export class CanItGuard implements CanActivate {
   private getCanItRequest(
     context: ExecutionContext
   ): Request | undefined {
-    const request = this.reflector.getAllAndOverride<[string, string | RiResolver | undefined]>(
-      CAN_IT,
-      [context.getHandler(), context.getClass()]
-    );
+    const request = getCanItDecorator(this.reflector, context);
 
     if (!request) {
       return;
@@ -72,10 +68,7 @@ export class CanItGuard implements CanActivate {
   }
 
   private getRiResolver(context: ExecutionContext) {
-    return this.reflector.getAllAndOverride<RiResolver | undefined>(
-      RI_RESOLVER,
-      [context.getHandler(), context.getClass()]
-    ) || this.config?.resolvers?.ri;
+    return getRiResolverDecorator(this.reflector, context) || this.config?.resolvers?.ri;
   }
 
   private getPolicy(context: ExecutionContext) {
@@ -89,9 +82,6 @@ export class CanItGuard implements CanActivate {
   }
 
   private getPolicyResolver(context: ExecutionContext) {
-    return this.reflector.getAllAndOverride<PolicyResolver | undefined>(
-      POLICY_RESOLVER,
-      [context.getHandler(), context.getClass()]
-    ) || this.config?.resolvers?.policy;
+    return getPolicyResolverDecorator(this.reflector, context) || this.config?.resolvers?.policy;
   }
 }

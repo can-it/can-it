@@ -1,9 +1,9 @@
 export * from './lib/can-it.module';
 
 export * from './lib/decorators/allow-to.decorator';
-export * from './lib/decorators/can-it.decorator';
-export * from './lib/decorators/use-policy-resolver.decorator';
-export * from './lib/decorators/use-ri-resolver.decorator';
+export { CanIt } from './lib/decorators/can-it.decorator';
+export { UsePolicyResolver } from './lib/decorators/use-policy-resolver.decorator';
+export { UseRiResolver } from './lib/decorators/use-ri-resolver.decorator';
 
 export * from './lib/guards/can-it.guard';
 
