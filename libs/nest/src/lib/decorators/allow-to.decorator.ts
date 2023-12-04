@@ -8,6 +8,10 @@ export const AllowTo = createParamDecorator<unknown, ExecutionContext, CanIt['al
 
     const canIt = req[CAN_IT] as CanIt;
 
+    if (!canIt) {
+      throw new Error('Please make sure this "AllowTo" decorator is using in the CanItGuard context')
+    }
+
     return canIt.allowTo.bind(canIt);
   }
 )
