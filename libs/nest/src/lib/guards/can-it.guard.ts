@@ -71,8 +71,8 @@ export class CanItGuard implements CanActivate {
     return [action, ri];
   }
 
-  private getRiResolver(context: ExecutionContext): RiResolver | undefined {
-    return this.reflector.getAllAndOverride<RiResolver>(
+  private getRiResolver(context: ExecutionContext) {
+    return this.reflector.getAllAndOverride<RiResolver | undefined>(
       RI_RESOLVER,
       [context.getHandler(), context.getClass()]
     ) || this.config?.resolvers?.ri;
@@ -88,8 +88,8 @@ export class CanItGuard implements CanActivate {
     return policyResolver(context, this.moduleRef);
   }
 
-  private getPolicyResolver(context: ExecutionContext): PolicyResolver | undefined {
-    return this.reflector.getAllAndOverride<PolicyResolver>(
+  private getPolicyResolver(context: ExecutionContext) {
+    return this.reflector.getAllAndOverride<PolicyResolver | undefined>(
       POLICY_RESOLVER,
       [context.getHandler(), context.getClass()]
     ) || this.config?.resolvers?.policy;
