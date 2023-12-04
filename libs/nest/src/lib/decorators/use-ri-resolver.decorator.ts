@@ -1,6 +1,5 @@
 import { SetMetadata } from '@nestjs/common';
-import { ResourceState } from '@can-it/types';
 import { RI_RESOLVER } from '../constants';
+import { RiResolver } from '../models/ri-resolver';
 
-export const UseRiResolver = (resolver: <T>(req: unknown) => ResourceState<T>) =>
-  SetMetadata(RI_RESOLVER, resolver);
+export const UseRiResolver = (resolver: RiResolver) => SetMetadata(RI_RESOLVER, resolver);
