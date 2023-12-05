@@ -1,6 +1,5 @@
 import { CanActivate, ExecutionContext, Inject, Injectable, Optional } from '@nestjs/common';
 import { ModuleRef, Reflector } from '@nestjs/core';
-import { Observable } from 'rxjs';
 import {
   CAN_IT,
   CAN_IT_CONFIGURATION
@@ -20,16 +19,16 @@ export class CanItGuard implements CanActivate {
     @Inject(CAN_IT_CONFIGURATION) @Optional() private config?: CanItConfiguration
   ) {}
 
-  canActivate(
+  async canActivate(
     context: ExecutionContext
-  ): boolean | Promise<boolean> | Observable<boolean> {
-    const canItRequest = this.getCanItRequest(context);
+  ): Promise<boolean> {
+    const canItRequest = await this.getCanItRequest(context);
     if (!canItRequest) {
       return true;
     }
 
     const canIt = new CanIt(
-      this.getPolicy(context),
+      await this.getPolicy(context),
       this.config?.comparators?.action,
       this.config?.comparators?.ri
     );
@@ -40,9 +39,9 @@ export class CanItGuard implements CanActivate {
     return canIt.allowTo(...canItRequest);
   }
 
-  private getCanItRequest(
+  private async getCanItRequest(
     context: ExecutionContext
-  ): Request | undefined {
+  ): Promise<Request | undefined> {
     const request = getCanItDecorator(this.reflector, context);
 
     if (!request) {
@@ -57,11 +56,11 @@ export class CanItGuard implements CanActivate {
         throw new Error('There is no "RiResolver" provided. Please make sure you added somewhere in this module.')
       }
 
-      return [action, riResolver(context, this.moduleRef)];
+      return [action, await riResolver(context, this.moduleRef)];
     }
 
     if (typeof ri !== 'string') {
-      return [action, ri(context, this.moduleRef)];
+      return [action, await ri(context, this.moduleRef)];
     }
 
     return [action, ri];
