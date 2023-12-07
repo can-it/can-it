@@ -6,14 +6,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/can-it/core.git"
+    "url": "git+https://github.com/can-it/can-it.git"
   },
   "author": "Hai Le <haile.vnm@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/can-it/core/issues"
+    "url": "https://github.com/can-it/can-it/issues"
   },
-  "homepage": "https://github.com/can-it/core#readme",
+  "homepage": "https://can-it.github.io",
   "keywords": [
     "can-it"
   ],

@@ -7,7 +7,7 @@ To set up the environment, follow these steps:
 1. Clone this repository:
 
     ```bash
-    git clone git@github.com:can-it/core.git can-it
+    git clone git@github.com:can-it/can-it.git
     ```
 
 2. Navigate to the project directory:
