@@ -1,6 +1,4 @@
-import { Request } from './types/request';
-import { Permission, PolicyState } from './types/policy-state';
-import { Comparator } from '@can-it/types';
+import { Comparator, Permission, Request, PolicyState } from '@can-it/types';
 import { ExactComparator } from '@can-it/operators-exact';
 
 export class CanIt {
