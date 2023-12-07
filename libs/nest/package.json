@@ -1,6 +1,6 @@
 {
   "name": "@can-it/nest",
-  "version": "0.0.1-8",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/can-it/core.git"
