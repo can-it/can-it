@@ -1,6 +1,6 @@
 {
   "name": "@can-it/nest",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/can-it/can-it.git"
@@ -29,10 +29,10 @@
   "homepage": "https://can-it.github.io/packages/nest",
   "dependencies": {
     "tslib": "^2.3.0",
-    "@can-it/core": "^0.5.4"
+    "@can-it/core": "^1.0.0"
   },
   "devDependencies": {
-    "@can-it/types": "^0.0.1"
+    "@can-it/types": "^1.0.0"
   },
   "type": "commonjs",
   "main": "./src/index.js",
