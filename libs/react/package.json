@@ -1,6 +1,6 @@
 {
   "name": "@can-it/react",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/can-it/can-it.git"
@@ -12,6 +12,7 @@
     "authorization",
     "permissions",
     "rbac",
+    "pbac",
     "acl",
     "user policy",
     "react",
@@ -33,9 +34,9 @@
     }
   },
   "dependencies": {
-    "@can-it/core": "^0.5.3"
+    "@can-it/core": "^1.0.0"
   },
   "devDependencies": {
-    "@can-it/types": "^0.0.2"
+    "@can-it/types": "^1.0.0"
   }
 }
