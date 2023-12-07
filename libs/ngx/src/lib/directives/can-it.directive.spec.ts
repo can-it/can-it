@@ -3,7 +3,7 @@ import { CanItDirective } from './can-it.directive';
 import { Component, TemplateRef, ViewContainerRef } from '@angular/core';
 import { CanItService } from '../services/can-it.service';
 import { ReplaySubject } from 'rxjs';
-import { Request } from '../types/permission';
+import { Request } from '@can-it/types';
 import { expectContent } from '../../spec-helpers/element';
 
 const DICTIONARY = {

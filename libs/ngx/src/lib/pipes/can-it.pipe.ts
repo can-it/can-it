@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { CanItService } from '../services/can-it.service';
-import { Request } from '../types/permission';
+import { Request } from '@can-it/types';
 
 @Pipe({
   name: 'canIt'

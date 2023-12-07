@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { PolicyState } from '@can-it/types';
 import { ReplaySubject, first } from 'rxjs';
-import PolicyState from '../types/policy-state';
 
 @Injectable({
   providedIn: 'root'

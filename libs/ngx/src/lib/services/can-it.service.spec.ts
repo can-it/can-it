@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { CanItService } from './can-it.service';
 import { PolicyStore } from './policy-store.service';
-import { Permission } from '../types/permission';
+import { Permission } from '@can-it/types';
 
 describe('NgxCanItService', () => {
   let service: CanItService;

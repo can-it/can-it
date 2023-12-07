@@ -1,5 +1,5 @@
 import { InjectionToken } from '@angular/core';
-import { Comparator } from '@can-it/core';
+import { Comparator } from '@can-it/types';
 
 export const ACTION_COMPARATOR = new InjectionToken<Comparator>('ACTION_COMPARATOR');
 

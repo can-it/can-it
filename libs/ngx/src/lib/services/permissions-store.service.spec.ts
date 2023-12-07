@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { PolicyStore } from './policy-store.service';
-import PolicyState from '../types/policy-state';
+import { PolicyState } from '@can-it/types';
 
 describe('PolicyStore', () => {
   let service: PolicyStore;

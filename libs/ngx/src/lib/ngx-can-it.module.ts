@@ -4,7 +4,7 @@ import { CanItPipe } from './pipes/can-it.pipe';
 import { PolicyStore } from './services/policy-store.service';
 import { CanItService } from './services/can-it.service';
 import { ACTION_COMPARATOR, RI_COMPARATOR } from './constants/token';
-import { Comparator } from '@can-it/core';
+import { Comparator } from '@can-it/types';
 
 @NgModule({
   declarations: [

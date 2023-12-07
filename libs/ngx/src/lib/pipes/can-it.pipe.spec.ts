@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CanItPipe } from './can-it.pipe';
 import { CanItService } from '../services/can-it.service';
-import { Request } from '../types/permission';
+import { Request } from '@can-it/types';
 import { ReplaySubject } from 'rxjs';
 import { Component } from '@angular/core';
 import { expectContent } from '../../spec-helpers/element';

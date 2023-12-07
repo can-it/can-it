@@ -1,6 +1,13 @@
-import { Directive, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import {
+  Directive,
+  Input,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewContainerRef
+} from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Request } from '../types/permission';
+import { Request } from '@can-it/types';
 import { CanItService } from '../services/can-it.service';
 
 const SHOWING_MODE = {

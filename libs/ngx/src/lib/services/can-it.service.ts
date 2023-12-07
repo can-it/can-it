@@ -1,9 +1,9 @@
 import { Inject, Injectable, Optional } from '@angular/core';
 import { PolicyStore } from './policy-store.service';
 import { Observable, map } from 'rxjs';
-import { Request } from '../types/permission';
 import { ACTION_COMPARATOR, RI_COMPARATOR } from '../constants/token';
-import { CanIt, Comparator } from '@can-it/core';
+import { CanIt } from '@can-it/core';
+import { Comparator, Request } from '@can-it/types';
 
 @Injectable({
   providedIn: 'root'
