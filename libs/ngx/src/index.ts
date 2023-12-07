@@ -11,6 +11,3 @@ export * from './lib/pipes/can-it.pipe';
 
 export * from './lib/services/can-it.service';
 export * from './lib/services/policy-store.service';
-
-export * from './lib/types/permission';
-export * from './lib/types/policy-state';
