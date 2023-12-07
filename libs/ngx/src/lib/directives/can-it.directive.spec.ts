@@ -39,18 +39,19 @@ class HostComponent {
 
 describe('CanItDirective', () => {
   let fixture: ComponentFixture<HostComponent>;
-  let canItService: Pick<CanItService, 'can'>;
+  let canItService: Pick<CanItService, 'allowTo'>;
   let canSubject$: ReplaySubject<boolean>;
   beforeEach(async () => {
     canItService = {
-      can: (_: Request) => canSubject$.asObservable()
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      allowTo: (_: Request) => canSubject$.asObservable()
     }
     await TestBed.configureTestingModule({
       declarations: [HostComponent, CanItDirective],
       providers: [
         TemplateRef,
         ViewContainerRef,
-        
+
         { provide: CanItService, useValue: canItService }
       ]
     }).compileComponents();

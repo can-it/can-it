@@ -21,7 +21,7 @@ export class CanItService {
     );
   }
 
-  can(request: Request) {
+  allowTo(request: Request) {
     return this.canIt$.pipe(
       map(canIt => canIt.allowTo(...request))
     );

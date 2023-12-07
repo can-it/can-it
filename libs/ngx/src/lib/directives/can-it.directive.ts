@@ -14,19 +14,21 @@ const SHOWING_MODE = {
 })
 export class CanItDirective implements OnInit, OnDestroy {
   @Input({ required: true }) canIt: Request;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() canItElse: TemplateRef<any>;
 
   private showing = SHOWING_MODE.none;
   private subscription: Subscription;
 
   constructor(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef,
     private canItService: CanItService
   ) { }
 
   ngOnInit(): void {
-    this.subscription = this.canItService.can(this.canIt).subscribe(can => {
+    this.subscription = this.canItService.allowTo(this.canIt).subscribe(can => {
       if (can) {
         return this.showCanContent();
       }
@@ -34,7 +36,7 @@ export class CanItDirective implements OnInit, OnDestroy {
       if (this.canItElse) {
         return this.showElseContent();
       }
-      
+
       this.hideContent();
     });
   }
@@ -47,7 +49,7 @@ export class CanItDirective implements OnInit, OnDestroy {
     if (this.showing === SHOWING_MODE.else) {
       return;
     }
-    
+
     this.viewContainer.clear();
     this.viewContainer.createEmbeddedView(this.canItElse);
     this.showing = SHOWING_MODE.else;

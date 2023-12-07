@@ -33,7 +33,7 @@ describe('NgxCanItService', () => {
 
   it('should allow when the request matches the allow permissions', () => {
     store.set({ allow: ALLOW_PERMISSIONS });
-    service.can(['edit', 'user']).subscribe(canSubscriber);
+    service.allowTo(['edit', 'user']).subscribe(canSubscriber);
 
     expect(canSubscriber).toHaveBeenCalledWith(true);
     expect(canSubscriber).toHaveBeenCalledTimes(1);
@@ -43,14 +43,14 @@ describe('NgxCanItService', () => {
 
   it('should not allow when the request does not match the allow permissions', () => {
     store.set({ allow: ALLOW_PERMISSIONS });
-    service.can(['undefined-action', 'undefined-resource']).subscribe(canSubscriber);
+    service.allowTo(['undefined-action', 'undefined-resource']).subscribe(canSubscriber);
 
     expect(canSubscriber).toHaveBeenCalledWith(false);
     expect(canSubscriber).toHaveBeenCalledTimes(1);
   });
 
   it('should update the access permissions when they are updated', () => {
-    service.can(['edit', 'user']).subscribe(canSubscriber);
+    service.allowTo(['edit', 'user']).subscribe(canSubscriber);
     store.set({ allow: ALLOW_PERMISSIONS });
     store.set({ allow: [] });
 
@@ -61,7 +61,7 @@ describe('NgxCanItService', () => {
 
   it('should not allow if request matches deny permissions, even in "allow" permissions', () => {
     store.set({ allow: ALLOW_PERMISSIONS, deny: DENY_PERMISSIONS });
-    service.can(['delete', 'user']).subscribe(canSubscriber);
+    service.allowTo(['delete', 'user']).subscribe(canSubscriber);
 
     expect(canSubscriber).toHaveBeenCalledWith(false);
     expect(canSubscriber).toHaveBeenCalledTimes(1);

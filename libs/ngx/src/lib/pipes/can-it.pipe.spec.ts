@@ -16,17 +16,18 @@ class HostComponent {
 describe('CanItPipe: with TestBed and HostComponent', () => {
   let fixture: ComponentFixture<HostComponent>;
   let canItService: Pick<
-    CanItService, 'can'
+    CanItService, 'allowTo'
   >;
   const canSubject$ = new ReplaySubject<boolean>(1);
 
   beforeEach(async () => {
     canItService = {
-      can: (_: Request) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      allowTo: (_: Request) => {
         return canSubject$.asObservable();
       }
     };
-    
+
     await TestBed.configureTestingModule({
       declarations: [CanItPipe, HostComponent],
       providers: [
@@ -35,7 +36,7 @@ describe('CanItPipe: with TestBed and HostComponent', () => {
     }).compileComponents();
 
     canItService = TestBed.inject(CanItService);
-    
+
     fixture = TestBed.createComponent(HostComponent);
   });
 
@@ -44,7 +45,7 @@ describe('CanItPipe: with TestBed and HostComponent', () => {
     fixture.detectChanges();
     expectContent(fixture).toEqual('true');
   });
-  
+
   it('should display "false" when the observable value returned by canItService is false', () => {
     canSubject$.next(false);
     fixture.detectChanges();
