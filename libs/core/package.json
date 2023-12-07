@@ -1,6 +1,6 @@
 {
   "name": "@can-it/core",
-  "version": "0.5.4",
+  "version": "1.0.0",
   "description": "",
   "types": "dist/index.d.ts",
   "publishConfig": {
@@ -32,8 +32,10 @@
   "homepage": "https://can-it.github.io/packages/core",
   "dependencies": {
     "@can-it/operators-exact": "^0.0.1",
-    "@can-it/types": "^0.0.1",
     "@swc/helpers": "~0.5.2"
+  },
+  "devDependencies": {
+    "@can-it/types": "^1.0.0"
   },
   "type": "commonjs",
   "main": "./src/index.js",
