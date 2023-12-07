@@ -1,17 +1,15 @@
-import { ExecutionContext, createParamDecorator } from '@nestjs/common';
+import { ExecutionContext, SetMetadata } from '@nestjs/common';
 import { CAN_IT } from '../constants';
-import { CanIt } from '@can-it/core';
+import { Reflector } from '@nestjs/core';
+import { RiResolver } from '../models/ri-resolver';
 
-export const AllowTo = createParamDecorator<unknown, ExecutionContext, CanIt['allowTo']>(
-  (_data: unknown, ctx: ExecutionContext) => {
-    const req = ctx.switchToHttp().getRequest();
+export const AllowTo = (
+  action: string,
+  ri?: string | RiResolver
+) => SetMetadata(CAN_IT, [action, ri]);
 
-    const canIt = req[CAN_IT] as CanIt;
-
-    if (!canIt) {
-      throw new Error('Please make sure this "AllowTo" decorator is using in the CanItGuard context')
-    }
-
-    return canIt.allowTo.bind(canIt);
-  }
-)
+export const getAllowToDecorator = (reflector: Reflector, context: ExecutionContext) =>
+  reflector.getAllAndOverride<[string, string | RiResolver | undefined] | undefined>(
+    CAN_IT,
+    [context.getHandler(), context.getClass()]
+  );

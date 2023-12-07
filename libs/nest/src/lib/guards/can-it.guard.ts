@@ -7,9 +7,9 @@ import {
 import { Request } from '@can-it/types';
 import { CanIt } from '@can-it/core';
 import { CanItConfiguration } from '../models/configuration';
-import { getCanItDecorator } from '../decorators/can-it.decorator';
 import { getRiResolverDecorator } from '../decorators/use-ri-resolver.decorator';
 import { getPolicyResolverDecorator } from '../decorators/use-policy-resolver.decorator';
+import { getAllowToDecorator } from '../decorators/allow-to.decorator';
 
 @Injectable()
 export class CanItGuard implements CanActivate {
@@ -42,7 +42,7 @@ export class CanItGuard implements CanActivate {
   private async getCanItRequest(
     context: ExecutionContext
   ): Promise<Request | undefined> {
-    const request = getCanItDecorator(this.reflector, context);
+    const request = getAllowToDecorator(this.reflector, context);
 
     if (!request) {
       return;

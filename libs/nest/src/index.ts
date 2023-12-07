@@ -1,7 +1,7 @@
 export * from './lib/can-it.module';
 
 export * from './lib/decorators/allow-to.decorator';
-export { CanIt } from './lib/decorators/can-it.decorator';
+export { CanItService } from './lib/decorators/can-it-service.decorator';
 export { UsePolicyResolver } from './lib/decorators/use-policy-resolver.decorator';
 export { UseRiResolver } from './lib/decorators/use-ri-resolver.decorator';
 
