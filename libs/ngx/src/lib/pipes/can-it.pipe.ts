@@ -11,6 +11,6 @@ export class CanItPipe implements PipeTransform {
   ) {}
 
   transform(action: Request) {
-    return this.canItService.allowTo(action);
+    return this.canItService.allowTo(...action);
   }
 }

@@ -44,7 +44,7 @@ describe('CanItDirective', () => {
   beforeEach(async () => {
     canItService = {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      allowTo: (_: Request) => canSubject$.asObservable()
+      allowTo: (..._: Request) => canSubject$.asObservable()
     }
     await TestBed.configureTestingModule({
       declarations: [HostComponent, CanItDirective],

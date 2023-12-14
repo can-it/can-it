@@ -35,7 +35,7 @@ export class CanItDirective implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.subscription = this.canItService.allowTo(this.canIt).subscribe(can => {
+    this.subscription = this.canItService.allowTo(...this.canIt).subscribe(can => {
       if (can) {
         return this.showCanContent();
       }

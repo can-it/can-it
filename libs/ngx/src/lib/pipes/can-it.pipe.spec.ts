@@ -23,7 +23,7 @@ describe('CanItPipe: with TestBed and HostComponent', () => {
   beforeEach(async () => {
     canItService = {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      allowTo: (_: Request) => {
+      allowTo: (_action: string, _ri: string) => {
         return canSubject$.asObservable();
       }
     };
