@@ -86,12 +86,11 @@ describe('RelationComparator: do not support inheritance in "relationship" actio
   });
 });
 
-describe('RelationComparator with incorrect action relationship', () => {
+describe('RelationComparator with undefined relationship codes', () => {
   const operator = new RelationComparator(
     ['edit', 'get'],
     {
-      edit: ['unknown-action', 'get'],
-      ['unknow-action']: ['edit', 'view']
+      edit: ['get', 'unknown-action']
     }
   );
 
@@ -100,9 +99,19 @@ describe('RelationComparator with incorrect action relationship', () => {
   });
 
   test('should always not allow the action that not provided in "actions" list', () => {
-    expect(operator.isAllowed('unknown-action', 'unknow-action')).toBe(false);
-    expect(operator.isAllowed('edit', 'unknow-action')).toBe(false);
+    expect(operator.isAllowed('unknown-action', 'unknown-action')).toBe(false);
+    expect(operator.isAllowed('edit', 'unknown-action')).toBe(false);
     expect(operator.isAllowed('unknown-action', 'edit')).toBe(false);
+  });
+
+  test('should throw error when mentioned undefined codes in the relation as a key', () => {
+    expect(() => new RelationComparator(
+      ['edit', 'get'],
+      {
+        edit: ['get'],
+        ['unknown-action-key']: ['edit', 'view']
+      }
+    )).toThrow(/unknown-action-key/);
   });
 });
 

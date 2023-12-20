@@ -1,10 +1,5 @@
 import { Comparator } from '@can-it/types';
 
-interface ActionValue {
-  [action: string]: number;
-}
-
-const MAX_SUPPORT_BITS = 32; // bytes
 /**
  * ```typescript
  *  const operator = new RelationActionOperator(
@@ -32,23 +27,13 @@ const MAX_SUPPORT_BITS = 32; // bytes
  * ```
  */
 export class RelationComparator implements Comparator {
-  private relationValues!: ActionValue;
-  private definitionValues!: ActionValue;
+  private relationship: Record<string, string[]>;
+  private codes: string[];
 
-  constructor(actions: string[], relationship: Record<string, string[]>) {
-    // TODO:: I will improve this problem later
-    if (actions.length > MAX_SUPPORT_BITS) {
-      throw new Error(`This comparator only supports up to ${MAX_SUPPORT_BITS} codes.
-You provided ${actions.length} codes. The codes you provided are:
-    [${actions.toString()}]`);
-    }
-    this.formatActionRelation(actions, relationship);
-  }
-
-  isAllowed(requestCode: string, permissionCode: string) {
-    return !!(
-      this.definitionValues[requestCode] & this.relationValues[permissionCode]
-    );
+  constructor(codes: string[], relationship: Record<string, string[]>) {
+    this.codes = codes;
+    this.relationship = relationship;
+    this.validateRelationship();
   }
 
   /**
@@ -63,31 +48,35 @@ You provided ${actions.length} codes. The codes you provided are:
     return requestCode === permissionCode;
   }
 
-  private formatActionRelation(
-    actions: string[],
-    relationship: Record<string, string[]>
-  ) {
-    this.definitionValues = actions.reduce((pre, cur, index) => {
-      pre[cur] = 1 << index;
-      return pre;
-    }, {} as ActionValue);
+  isAllowed(requestCode: string, permissionCode: string) {
+    if (!this.codes.includes(requestCode)) {
+      return false;
+    }
 
-    this.relationValues = actions.reduce((pre, action) => {
-      if (!relationship[action]) {
-        pre[action] = this.definitionValues[action];
-        return pre;
-      }
+    if (this.isBiggestCode(permissionCode)) {
+      return true;
+    }
 
-      // If an action specifies its child action as an empty array, it will be known as containing all other actions.
-      const childActions = relationship[action]?.length === 0 ? actions : relationship[action];
+    return (this.relationship[permissionCode] || []).concat(permissionCode).includes(requestCode);
+  }
 
-      const relationValue = childActions.reduce(
-        (sum, v) => sum | (this.definitionValues[v] || 0),
-        this.definitionValues[action]
-      );
+  /**
+   * the biggest code which has the empty array ([]) in the `relationship` object passed via this constructor.
+   * Which has the value included all other codes in the `codes` passed via this constructor
+   */
+  private isBiggestCode(permissionCode: string) {
+    if (!this.relationship[permissionCode]) {
+      return false;
+    }
 
-      pre[action] = relationValue;
-      return pre;
-    }, {} as ActionValue);
+    return this.relationship[permissionCode].length === 0;
+  }
+
+  private validateRelationship() {
+    const code = Object.keys(this.relationship).find(code => !this.codes.includes(code));
+
+    if (code) {
+      throw new Error(`${code} not found in codes ${this.codes}`);
+    }
   }
 }
